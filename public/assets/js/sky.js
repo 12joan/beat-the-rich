@@ -20,9 +20,11 @@ class Sky extends GameComponent {
 
     uniforms['sunPosition'].value.setFromSphericalCoords(1, phi, theta)
 
-    const light = new THREE.DirectionalLight(0xffffff, 0.5)
-    light.castShadow = true
+    const light = new THREE.PointLight(0xffffff, 1)
     light.position.setFromSphericalCoords(20, phi, theta)
+    light.castShadow = true
+    light.shadow.mapSize.width = 4096
+    light.shadow.mapSize.height = 4096
     this.scene.add(light)
   }
 }

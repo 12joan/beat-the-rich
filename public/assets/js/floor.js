@@ -5,7 +5,6 @@ class Floor extends GameComponent {
   start() {
     const geometry = new THREE.PlaneGeometry(2000, 2000)
     geometry.rotateX(- Math.PI / 2)
-    geometry.translate(0, -1, 0)
 
     const material = new THREE.MeshPhysicalMaterial({
       color: 0x666666,

@@ -5,7 +5,7 @@ import InputManager from './inputManager.js'
 
 const ACCELERATION = 40
 const DECCELERATION_COEFFICIENT = 10
-const MAX_SPEED = 8
+const MAX_SPEED = 6
 
 class Controls extends GameComponent {
   velocity = new THREE.Vector2()
