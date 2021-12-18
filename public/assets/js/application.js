@@ -14,6 +14,7 @@ camera.position.set(0, 1, 15)
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
 renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
+renderer.localClippingEnabled = true
 
 const rootComponent = new GameComponent({ scene, camera, renderer, canvas })
 

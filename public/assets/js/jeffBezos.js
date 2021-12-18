@@ -7,31 +7,47 @@ const LEAP_DURATION = 0.5
 const LEAP_HEIGHT = 1.25
 const LEAP_SPEED = 6
 
+const BOX_HEIGHT = 0.5
+const CUT_OUT_HEIGHT = 1.5
+const DESCENT_INTO_BOX_DURATION = 60
+
 class JeffBezos extends GameComponent {
   leaping = false
   beforeLeapTimer = new Timer()
   leapTimer = new Timer()
 
   start() {
-    const geometry = new THREE.BoxGeometry(0.75, 0.5, 0.55)
+    this.clippingPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
 
     const material = new THREE.MeshPhysicalMaterial({
       color: 0xddaa88,
       metalness: 0,
       roughness: 0.5,
       clearcoat: 0.75,
+      clippingPlanes: [this.clippingPlane],
+      clipShadows: true,
     })
 
-    this.basePositionY = geometry.parameters.height / 2
+    const boxGeometry = new THREE.BoxGeometry(0.75, BOX_HEIGHT, 0.55)
 
-    this.cube = new THREE.Mesh(geometry, material)
-    this.cube.castShadow = true
-    this.cube.receiveShadow = true
+    this.box = new THREE.Mesh(boxGeometry, material)
+    this.box.castShadow = true
+    this.box.receiveShadow = true
     this.setAltitude(0)
-    this.scene.add(this.cube)
+    this.scene.add(this.box)
+
+    const cutOutGeometry = new THREE.BoxGeometry(0.5, CUT_OUT_HEIGHT, 0.02)
+
+    this.cutOut = new THREE.Mesh(cutOutGeometry, material)
+    this.cutOut.castShadow = true
+    this.cutOut.receiveShadow = true
+    this.cutOut.position.y = (cutOutGeometry.parameters.height / 2) - (boxGeometry.parameters.height / 2)
+    this.box.add(this.cutOut)
   }
 
   update(deltaTime) {
+    this.cutOut.position.y -= (CUT_OUT_HEIGHT - BOX_HEIGHT) * deltaTime / DESCENT_INTO_BOX_DURATION
+
     if (this.leaping) {
       this.leapTimer.advanceClock(deltaTime)
 
@@ -40,10 +56,10 @@ class JeffBezos extends GameComponent {
       this.setAltitude(LEAP_HEIGHT * -4 * progress * (progress - 1))
 
       // Travel in a random direction
-      this.cube.position.add(this.leapDirection.clone().multiplyScalar(LEAP_SPEED * deltaTime))
+      this.box.position.add(this.leapDirection.clone().multiplyScalar(LEAP_SPEED * deltaTime))
 
       // Rotate in the direction of travel
-      this.cube.rotation.y = this.leapDirection.angleTo(new THREE.Vector3(0, 0, 1))
+      this.box.rotation.y = this.leapDirection.angleTo(new THREE.Vector3(0, 0, 1))
 
       this.leapTimer.afterTime(LEAP_DURATION, () => {
         this.leaping = false
@@ -62,7 +78,8 @@ class JeffBezos extends GameComponent {
   }
 
   setAltitude(altitude) {
-    this.cube.position.y = this.basePositionY + altitude
+    this.box.position.y = (BOX_HEIGHT / 2) + altitude
+    this.clippingPlane.constant = -altitude
   }
 
   randomiseLeapDirection() {
