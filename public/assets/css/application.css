@@ -7,7 +7,7 @@ body {
   background: black;
   font-family: 'CYN Gamer', sans-serif;
   color: white;
-  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
+  text-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.25);
   max-width: 72rem;
 }
 
@@ -38,14 +38,18 @@ body {
   background-color: black;
   border-radius: 0.25em;
   overflow: hidden;
+  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.125);
 }
 
 #game-overlay-hud-wealth-bar-fill {
   width: 100%;
   background-color: red;
+}
+
+#game-overlay-hud-wealth-bar-fill::after {
+  content: attr(data-text);
   padding: 0.5em 0.75em;
   font-size: 0.8em;
-  overflow-x: visible;
   word-break: initial;
   overflow-wrap: initial;
 }

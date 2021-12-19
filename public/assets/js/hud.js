@@ -7,7 +7,7 @@ class HUD extends GameComponent {
   data = {}
 
   overlayEl = document.querySelector('#game-overlay')
-  wealthFill = this.overlayEl.querySelector('#game-overlay-hud-wealth-bar-fill')
+  wealthFillEl = this.overlayEl.querySelector('#game-overlay-hud-wealth-bar-fill')
 
   start() {
     window.addEventListener('resize', () => this.updateOverlayPosition())
@@ -15,8 +15,10 @@ class HUD extends GameComponent {
   }
 
   refresh() {
-    this.wealthFill.innerText = this.formatWealth(this.data.currentWealth)
-    this.wealthFill.style.width = (100 * this.data.currentWealth / this.data.startingWealth) + '%'
+    this.wealthFillEl.setAttribute('data-text', this.formatWealth(this.data.currentWealth))
+    this.wealthFillEl.style.width = this.data.currentWealth > 0
+      ? (100 * this.data.currentWealth / this.data.startingWealth) + '%'
+      : '0'
   }
 
   updateOverlayPosition() {

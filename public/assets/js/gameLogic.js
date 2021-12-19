@@ -27,7 +27,7 @@ class GameLogic extends GameComponent {
   }
 
   handleHit() {
-    this.enemyWealth -= WEALTH_REDUCTION_PER_HIT
+    this.enemyWealth = Math.max(0, this.enemyWealth - WEALTH_REDUCTION_PER_HIT)
     this.updateHUD()
   }
 
