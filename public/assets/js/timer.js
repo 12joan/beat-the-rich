@@ -9,12 +9,16 @@ class Timer {
     this.currentTime += deltaTime
   }
 
-  progressToTime(time) {
-    return Math.max(0, Math.min(1, this.currentTime / time))
+  progressToTime(time, options = { from: 0 }) {
+    return Math.max(0, Math.min(1, (this.currentTime - options.from) / time))
+  }
+
+  hasElapsed(time) {
+    return this.currentTime >= time
   }
 
   afterTime(time, func) {
-    if (this.currentTime >= time)
+    if (this.hasElapsed(time))
       func()
   }
 }

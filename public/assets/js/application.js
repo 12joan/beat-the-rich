@@ -1,7 +1,8 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
-import Environment from './environment.js'
 import GameControls from './controls.js'
+import Shovel from './shovel.js'
+import Environment from './environment.js'
 import JeffBezos from './jeffBezos.js'
 
 const canvas = document.querySelector('#game-canvas')
@@ -19,6 +20,7 @@ renderer.localClippingEnabled = true
 const rootComponent = new GameComponent({ scene, camera, renderer, canvas })
 
 const controlsComponent = rootComponent.initializeChild(GameControls)
+rootComponent.initializeChild(Shovel, { onAttack: () => console.log('SHOVEL!') })
 rootComponent.initializeChild(Environment)
 rootComponent.initializeChild(JeffBezos)
 

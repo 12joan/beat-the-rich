@@ -1,13 +1,28 @@
-const inputState = {}
+const keyState = {}
+const buttonState = {}
+
+const MOUSE_BUTTONS = {
+  LEFT: 0,
+  RIGHT: 2,
+}
 
 window.addEventListener('keydown', event => {
-  inputState[event.key] = true
+  keyState[event.key] = true
 })
 
 window.addEventListener('keyup', event => {
-  inputState[event.key] = false
+  keyState[event.key] = false
 })
 
-const getKey = key => Boolean(inputState[key])
+window.addEventListener('mousedown', event => {
+  buttonState[event.button] = true
+})
 
-export default { getKey }
+window.addEventListener('mouseup', event => {
+  buttonState[event.button] = false
+})
+
+const getKey = key => Boolean(keyState[key])
+const getMouseButton = button => Boolean(buttonState[button])
+
+export default { MOUSE_BUTTONS, getKey, getMouseButton }
