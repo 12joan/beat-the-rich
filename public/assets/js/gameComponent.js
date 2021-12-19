@@ -1,5 +1,8 @@
 class GameComponent {
-  constructor({ scene, camera, renderer, canvas }) {
+  tags = []
+
+  constructor({ parentComponent = undefined, scene, camera, renderer, canvas }) {
+    this.parentComponent = parentComponent
     this.scene = scene
     this.camera = camera
     this.renderer = renderer
@@ -24,6 +27,7 @@ class GameComponent {
 
   initializeChild(klass, options = {}) {
     return this.addChild(new klass({
+      parentComponent: this,
       scene: this.scene,
       camera: this.camera,
       renderer: this.renderer,
@@ -39,6 +43,25 @@ class GameComponent {
       child.start()
 
     return child
+  }
+
+  find(...args) {
+    return this.parentComponent === undefined
+      ? this.findInChildren(...args)
+      : this.parentComponent.find(...args)
+  }
+
+  findInChildren(tag) {
+    if (this.tags.includes(tag))
+      return this
+
+    for (const child of this.children) {
+      const result = child.findInChildren(tag)
+      if (result !== null)
+        return result
+    }
+
+    return null
   }
 }
 

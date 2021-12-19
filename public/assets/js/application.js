@@ -1,14 +1,10 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
 import GameControls from './controls.js'
+import GameLogic from './gameLogic.js'
 import Shovel from './shovel.js'
 import Environment from './environment.js'
 import JeffBezos from './jeffBezos.js'
-
-let enemyGameComponent
-
-const ATTACK_MAX_DISTANCE = 2.5
-const ATTACK_MAX_ANGLE = THREE.MathUtils.degToRad(30)
 
 const canvas = document.querySelector('#game-canvas')
 const scene = new THREE.Scene()
@@ -25,22 +21,10 @@ const rootComponent = new GameComponent({ scene, camera, renderer, canvas })
 
 const controlsComponent = rootComponent.initializeChild(GameControls)
 
-rootComponent.initializeChild(Shovel, {
-  onAttack: () => {
-    const lookDirection = new THREE.Vector3()
-    camera.getWorldDirection(lookDirection)
-
-    const toEnemy = enemyGameComponent.position.clone().sub(camera.position)
-    const distance = toEnemy.length()
-    const angle = toEnemy.angleTo(lookDirection)
-
-    if (distance <= ATTACK_MAX_DISTANCE && angle <= ATTACK_MAX_ANGLE)
-      alert('Hit!')
-  }
-})
-
+rootComponent.initializeChild(GameLogic)
+rootComponent.initializeChild(Shovel)
 rootComponent.initializeChild(Environment)
-enemyGameComponent = rootComponent.initializeChild(JeffBezos)
+rootComponent.initializeChild(JeffBezos)
 
 rootComponent.abstractStart()
 

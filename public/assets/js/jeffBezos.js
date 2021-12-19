@@ -12,6 +12,8 @@ const CUT_OUT_HEIGHT = 1.5
 const DESCENT_INTO_BOX_DURATION = 60
 
 class JeffBezos extends GameComponent {
+  tags = ['Enemy']
+
   leaping = false
   beforeLeapTimer = new Timer()
   leapTimer = new Timer()

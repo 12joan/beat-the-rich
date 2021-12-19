@@ -21,11 +21,6 @@ class Shovel extends GameComponent {
   animationState = ANIMATION_STATES.RESTING
   shovelAngle = MIN_ATTACK_ANGLE
 
-  constructor({ onAttack, ...otherArgs }) {
-    super(otherArgs)
-    this.onAttack = onAttack
-  }
-
   start() {
     this.cameraPivot = new THREE.Object3D()
     this.scene.add(this.cameraPivot)
@@ -59,7 +54,7 @@ class Shovel extends GameComponent {
 
     if (buttonState && !this.lastButtonState && this.animationState === ANIMATION_STATES.RESTING) {
       this.animationState = ANIMATION_STATES.DESCENDING
-      this.onAttack()
+      this.find('GameLogic').handleAttack()
     }
 
     this.lastButtonState = buttonState
