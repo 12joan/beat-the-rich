@@ -13,14 +13,22 @@
   </head>
 
   <body>
-    <canvas id="game-canvas" width="1920" height="1080"></canvas>
+    <div id="title">
+      <h1>bEat the Rich</h1>
+      <h2>With an ACTUAL Shovel</h2>
+      <h3>To Redistribute Their Wealth</h3>
+    </div>
 
-    <div id="game-overlay" style="display: none">
-      <div id="game-overlay-hud">
-        <div id="game-overlay-hud-wealth">
-          <strong>Jeff Bezos</strong>
-          <div id="game-overlay-hud-wealth-bar">
-            <div id="game-overlay-hud-wealth-bar-fill"></div>
+    <div id="game-container">
+      <canvas id="game-canvas" width="1920" height="1080"></canvas>
+
+      <div id="game-overlay" style="display: none">
+        <div id="game-overlay-hud">
+          <div id="game-overlay-hud-wealth">
+            <strong>Jeff Bezos</strong>
+            <div id="game-overlay-hud-wealth-bar">
+              <div id="game-overlay-hud-wealth-bar-fill"></div>
+            </div>
           </div>
         </div>
       </div>
