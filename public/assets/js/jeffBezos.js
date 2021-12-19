@@ -77,6 +77,10 @@ class JeffBezos extends GameComponent {
     }
   }
 
+  get position() {
+    return this.box.position
+  }
+
   setAltitude(altitude) {
     this.box.position.y = (BOX_HEIGHT / 2) + altitude
     this.clippingPlane.constant = -altitude

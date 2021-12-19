@@ -4,8 +4,9 @@ import InputManager from './inputManager.js'
 import Timer from './timer.js'
 
 const SHOVEL_HEIGHT = 0.5
-const MIN_SHOVEL_ANGLE = THREE.MathUtils.degToRad(10)
-const MAX_SHOVEL_ANGLE = THREE.MathUtils.degToRad(120)
+const SHOVEL_ANGLE_Y = THREE.MathUtils.degToRad(15)
+const MIN_ATTACK_ANGLE = THREE.MathUtils.degToRad(10)
+const MAX_ATTACK_ANGLE = THREE.MathUtils.degToRad(120)
 const DESCENT_DURATION = 0.1
 const ASCENT_DURATION = 0.2
 
@@ -18,7 +19,7 @@ const ANIMATION_STATES = {
 class Shovel extends GameComponent {
   lastButtonState = false
   animationState = ANIMATION_STATES.RESTING
-  shovelAngle = MIN_SHOVEL_ANGLE
+  shovelAngle = MIN_ATTACK_ANGLE
 
   constructor({ onAttack, ...otherArgs }) {
     super(otherArgs)
@@ -44,7 +45,6 @@ class Shovel extends GameComponent {
 
     this.shovel = new THREE.Mesh(shovelGeometry, material)
     this.shovel.position.set(0, SHOVEL_HEIGHT / 2, 0)
-    this.shovel.rotation.set(0, THREE.MathUtils.degToRad(10), 0)
     this.shovel.castShadow = true
     this.rotationPivot.add(this.shovel)
 
@@ -66,20 +66,20 @@ class Shovel extends GameComponent {
 
     switch (this.animationState) {
       case ANIMATION_STATES.DESCENDING:
-        this.shovelAngle += deltaTime * (MAX_SHOVEL_ANGLE - MIN_SHOVEL_ANGLE) / DESCENT_DURATION
+        this.shovelAngle += deltaTime * (MAX_ATTACK_ANGLE - MIN_ATTACK_ANGLE) / DESCENT_DURATION
 
-        if (this.shovelAngle >= MAX_SHOVEL_ANGLE) {
+        if (this.shovelAngle >= MAX_ATTACK_ANGLE) {
           this.animationState = ANIMATION_STATES.ASCENDING
         }
 
         break
 
       case ANIMATION_STATES.ASCENDING:
-        this.shovelAngle -= deltaTime * (MAX_SHOVEL_ANGLE - MIN_SHOVEL_ANGLE) / ASCENT_DURATION
+        this.shovelAngle -= deltaTime * (MAX_ATTACK_ANGLE - MIN_ATTACK_ANGLE) / ASCENT_DURATION
 
-        if (this.shovelAngle <= MIN_SHOVEL_ANGLE) {
+        if (this.shovelAngle <= MIN_ATTACK_ANGLE) {
           this.animationState = ANIMATION_STATES.RESTING
-          this.shovelAngle = MIN_SHOVEL_ANGLE
+          this.shovelAngle = MIN_ATTACK_ANGLE
         }
 
         break
@@ -94,7 +94,7 @@ class Shovel extends GameComponent {
   }
 
   updateShovelAngle() {
-    this.rotationPivot.rotation.x = -this.shovelAngle
+    this.rotationPivot.rotation.set(-this.shovelAngle, SHOVEL_ANGLE_Y, 0, 'YXZ')
   }
 }
 
