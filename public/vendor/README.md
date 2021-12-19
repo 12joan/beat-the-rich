@@ -1,4 +1,4 @@
-The /public/vendor directory contains third-party CSS and JS dependencies.
+The /public/vendor directory contains third-party CSS, JS and font dependencies.
 
 # Licences
 
@@ -49,3 +49,13 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+## CYN Gamer
+
+CYN Fonts by Petros Vasiadis are licensed under a Creative Commons Attribution 4.0 International License.
+
+You may download, share, use in commercial works and/or modify for free. A proper mention of the blog and my name would be appreciated if a font appears a commercial work. Thank you :)
+
+https://www.instagram.com/petrosvasiadis/
+
+https://cynfonts.blogspot.com/

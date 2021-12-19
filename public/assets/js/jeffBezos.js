@@ -13,6 +13,7 @@ const DESCENT_INTO_BOX_DURATION = 60
 
 class JeffBezos extends GameComponent {
   tags = ['Enemy']
+  startingWealth = 201.7e9
 
   leaping = false
   beforeLeapTimer = new Timer()

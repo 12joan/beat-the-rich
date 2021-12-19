@@ -1,9 +1,51 @@
+@font-face {
+  font-family: 'CYN Gamer';
+  src: url('../../vendor/fonts/CYN_Gamer.otf') format('opentype');
+}
+
 body {
   background: black;
+  font-family: 'CYN Gamer', sans-serif;
   color: white;
+  text-shadow: 0 2px 5px rgba(0, 0, 0, 0.25);
   max-width: 72rem;
 }
 
 #game-canvas {
   margin: auto 0;
+}
+
+#game-overlay {
+  position: absolute;
+  pointer-events: none;
+  user-select: none;
+}
+
+#game-overlay-hud {
+  width: 100%;
+  height: 100%;
+
+  display: flex;
+  flex-direction: column;
+}
+
+#game-overlay-hud-wealth {
+  margin-top: auto;
+  padding: 1em;
+}
+
+#game-overlay-hud-wealth-bar {
+  background-color: black;
+  border-radius: 0.25em;
+  overflow: hidden;
+}
+
+#game-overlay-hud-wealth-bar-fill {
+  width: 100%;
+  background-color: red;
+  padding: 0.5em 0.75em;
+  font-size: 0.8em;
+  overflow-x: visible;
+  word-break: initial;
+  overflow-wrap: initial;
 }
