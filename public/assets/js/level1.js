@@ -1,17 +1,26 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
-import Controls from './controls.js'
-import Shovel from './shovel.js'
-import Environment from './environment.js'
+import LevelEssentials from './levelEssentials.js'
+import Sky from './sky.js'
+import Floor from './floor.js'
 import JeffBezos from './jeffBezos.js'
 
 class Level1 extends GameComponent {
-  tags = ['Level']
-
   start() {
-    this.initializeChild(Controls)
-    this.initializeChild(Shovel)
-    this.initializeChild(Environment)
+    this.initializeChild(LevelEssentials)
+
+    // White background color
+    this.scene.background = new THREE.Color(0xffffff)
+
+    // Ambient light
+    this.scene.add(
+      this.objectRequiresCleanup(new THREE.AmbientLight(0x404040))
+    )
+
+    this.initializeChild(Sky)
+    this.initializeChild(Floor)
+
+    // Enemy
     this.initializeChild(JeffBezos)
   }
 }
