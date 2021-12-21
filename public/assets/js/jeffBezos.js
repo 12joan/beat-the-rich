@@ -23,24 +23,24 @@ class JeffBezos extends GameComponent {
   start() {
     this.clippingPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
 
-    const material = new THREE.MeshPhysicalMaterial({
+    const material = this.requiresCleanup(new THREE.MeshPhysicalMaterial({
       color: 0xddaa88,
       metalness: 0,
       roughness: 0.5,
       clearcoat: 0.75,
       clippingPlanes: [this.clippingPlane],
       clipShadows: true,
-    })
+    }), 'dispose')
 
-    const boxGeometry = new THREE.BoxGeometry(0.75, BOX_HEIGHT, 0.55)
+    const boxGeometry = this.requiresCleanup(new THREE.BoxGeometry(0.75, BOX_HEIGHT, 0.55), 'dispose')
 
-    this.box = new THREE.Mesh(boxGeometry, material)
+    this.box = this.objectRequiresCleanup(new THREE.Mesh(boxGeometry, material))
     this.box.castShadow = true
     this.box.receiveShadow = true
     this.setAltitude(0)
     this.scene.add(this.box)
 
-    const cutOutGeometry = new THREE.BoxGeometry(0.5, CUT_OUT_HEIGHT, 0.02)
+    const cutOutGeometry = this.requiresCleanup(new THREE.BoxGeometry(0.5, CUT_OUT_HEIGHT, 0.02), 'dispose')
 
     this.cutOut = new THREE.Mesh(cutOutGeometry, material)
     this.cutOut.castShadow = true

@@ -39,6 +39,13 @@ class GameLogic extends GameComponent {
 
   handleHit() {
     this.enemyWealth = Math.max(0, this.enemyWealth - WEALTH_REDUCTION_PER_HIT)
+
+    if (this.enemyWealth == 0)
+      this.levelCompleted()
+  }
+
+  levelCompleted() {
+    this.find('Level').destroy()
   }
 
   get enemy() {

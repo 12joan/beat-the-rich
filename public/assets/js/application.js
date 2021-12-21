@@ -1,11 +1,7 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
-import GameControls from './controls.js'
-import GameLogic from './gameLogic.js'
 import HUD from './hud.js'
-import Shovel from './shovel.js'
-import Environment from './environment.js'
-import JeffBezos from './jeffBezos.js'
+import Level1 from './level1.js'
 
 const canvas = document.querySelector('#game-canvas')
 const scene = new THREE.Scene()
@@ -19,15 +15,8 @@ renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.localClippingEnabled = true
 
 const rootComponent = new GameComponent({ scene, camera, renderer, canvas })
-
-const controlsComponent = rootComponent.initializeChild(GameControls)
-
-rootComponent.initializeChild(GameLogic)
 rootComponent.initializeChild(HUD)
-rootComponent.initializeChild(Shovel)
-rootComponent.initializeChild(Environment)
-rootComponent.initializeChild(JeffBezos)
-
+rootComponent.initializeChild(Level1)
 rootComponent.abstractStart()
 
 let previousTime = performance.now()
@@ -37,7 +26,7 @@ function updateLoop() {
   const time = performance.now()
   const deltaTime = (time - previousTime) / 1000
 
-  if (controlsComponent.isLocked) {
+  if (rootComponent.find('Controls')?.isLocked) {
     rootComponent.abstractUpdate(deltaTime)
     upToDate = false
   }

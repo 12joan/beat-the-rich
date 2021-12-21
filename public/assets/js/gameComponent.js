@@ -1,5 +1,9 @@
+import CleanUpHelper from './cleanUpHelper.js'
+
 class GameComponent {
   tags = []
+
+  cleanUpHelper = new CleanUpHelper()
 
   constructor({ parentComponent = undefined, scene, camera, renderer, canvas }) {
     this.parentComponent = parentComponent
@@ -43,6 +47,30 @@ class GameComponent {
       child.start()
 
     return child
+  }
+
+  removeChild(child) {
+    this.children = this.children.filter(x => x !== child)
+  }
+
+  destroy() {
+    this.children.forEach(child => child.destroy())
+    this.cleanUpHelper.cleanUp()
+    this.teardown()
+
+    if (this.parentComponent !== undefined)
+      this.parentComponent.removeChild(this)
+  }
+
+  teardown() {}
+
+  requiresCleanup(obj, cleanUpMethod) {
+    this.cleanUpHelper.add(obj, cleanUpMethod)
+    return obj
+  }
+
+  objectRequiresCleanup(obj) {
+    return this.requiresCleanup(obj, this.scene.remove.bind(this.scene))
   }
 
   find(...args) {

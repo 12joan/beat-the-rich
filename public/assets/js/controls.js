@@ -8,12 +8,20 @@ const DECCELERATION_COEFFICIENT = 10
 const MAX_SPEED = 6
 
 class Controls extends GameComponent {
+  tags = ['Controls']
+
   velocity = new THREE.Vector2()
 
   start() {
     this.controls = new PointerLockControls(this.camera, document.body)
-    this.scene.add(this.controls.getObject())
-    this.canvas.addEventListener('click', () => this.controls.lock())
+    this.scene.add(this.objectRequiresCleanup(this.controls.getObject()))
+
+    this.onClick = () => this.controls.lock()
+    this.canvas.addEventListener('click', this.onClick)
+  }
+
+  teardown() {
+    this.canvas.removeEventListener('click', this.onClick)
   }
 
   update(deltaTime) {

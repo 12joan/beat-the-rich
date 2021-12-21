@@ -9,7 +9,9 @@ class Environment extends GameComponent {
     this.scene.background = new THREE.Color(0xffffff)
 
     // Ambient light
-    this.scene.add(new THREE.AmbientLight(0x404040))
+    this.scene.add(
+      this.objectRequiresCleanup(new THREE.AmbientLight(0x404040))
+    )
 
     this.initializeChild(Sky)
     this.initializeChild(Floor)

@@ -22,21 +22,21 @@ class Shovel extends GameComponent {
   shovelAngle = MIN_ATTACK_ANGLE
 
   start() {
-    this.cameraPivot = new THREE.Object3D()
+    this.cameraPivot = this.objectRequiresCleanup(new THREE.Object3D())
     this.scene.add(this.cameraPivot)
 
     this.rotationPivot = new THREE.Object3D()
     this.rotationPivot.position.set(0.2, -0.5 * SHOVEL_HEIGHT, -0.75)
     this.cameraPivot.add(this.rotationPivot)
 
-    const material = new THREE.MeshPhysicalMaterial({
+    const material = this.requiresCleanup(new THREE.MeshPhysicalMaterial({
       color: 0xddaa88,
       metalness: 0,
       roughness: 0.5,
       clearcoat: 0.75,
-    })
+    }), 'dispose')
 
-    const shovelGeometry = new THREE.BoxGeometry(0.1, SHOVEL_HEIGHT, 0.01)
+    const shovelGeometry = this.requiresCleanup(new THREE.BoxGeometry(0.1, SHOVEL_HEIGHT, 0.01), 'dispose')
 
     this.shovel = new THREE.Mesh(shovelGeometry, material)
     this.shovel.position.set(0, SHOVEL_HEIGHT / 2, 0)

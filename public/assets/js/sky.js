@@ -4,7 +4,7 @@ import { Sky as SkyObject } from '../../vendor/js/three.js/examples/jsm/objects/
 
 class Sky extends GameComponent {
   start() {
-    const sky = new SkyObject()
+    const sky = this.objectRequiresCleanup(new SkyObject())
     sky.scale.setScalar(450000)
     this.scene.add(sky)
 
@@ -20,7 +20,7 @@ class Sky extends GameComponent {
 
     uniforms['sunPosition'].value.setFromSphericalCoords(1, phi, theta)
 
-    const light = new THREE.PointLight(0xffffff, 1)
+    const light = this.objectRequiresCleanup(new THREE.PointLight(0xffffff, 1))
     light.position.setFromSphericalCoords(20, phi, theta)
     light.castShadow = true
     light.shadow.mapSize.width = 4096
