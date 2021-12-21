@@ -31,8 +31,8 @@ class HUD extends GameComponent {
   }
 
   updateOverlayPosition() {
-    this.overlayEl.style.top = this.canvas.getBoundingClientRect().top + 'px'
-    this.overlayEl.style.left = this.canvas.getBoundingClientRect().left + 'px'
+    this.overlayEl.style.top = (this.canvas.getBoundingClientRect().top + window.scrollY) + 'px'
+    this.overlayEl.style.left = (this.canvas.getBoundingClientRect().left + window.scrollX) + 'px'
     this.overlayEl.style.width = this.canvas.getBoundingClientRect().width + 'px'
     this.overlayEl.style.height = this.canvas.getBoundingClientRect().height + 'px'
   }
