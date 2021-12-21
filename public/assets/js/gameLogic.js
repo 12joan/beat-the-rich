@@ -11,7 +11,15 @@ class GameLogic extends GameComponent {
 
   start() {
     this.enemyWealth = this.enemy.startingWealth
-    this.updateHUD()
+    this.update()
+  }
+
+  update() {
+    const hud = this.find('HUD')
+
+    hud.data.startingWealth = this.enemy.startingWealth
+    hud.data.currentWealth = this.enemyWealth
+    hud.data.remainingTime = this.enemy.remainingTime
   }
 
   handleAttack() {
@@ -28,20 +36,10 @@ class GameLogic extends GameComponent {
 
   handleHit() {
     this.enemyWealth = Math.max(0, this.enemyWealth - WEALTH_REDUCTION_PER_HIT)
-    this.updateHUD()
   }
 
   get enemy() {
     return this.find('Enemy')
-  }
-
-  updateHUD() {
-    const hud = this.find('HUD')
-
-    hud.data.startingWealth = this.enemy.startingWealth
-    hud.data.currentWealth = this.enemyWealth
-
-    hud.refresh()
   }
 }
 

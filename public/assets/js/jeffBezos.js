@@ -18,6 +18,7 @@ class JeffBezos extends GameComponent {
   leaping = false
   beforeLeapTimer = new Timer()
   leapTimer = new Timer()
+  remainingTime = DESCENT_INTO_BOX_DURATION
 
   start() {
     this.clippingPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
@@ -50,6 +51,7 @@ class JeffBezos extends GameComponent {
 
   update(deltaTime) {
     this.cutOut.position.y -= (CUT_OUT_HEIGHT - BOX_HEIGHT) * deltaTime / DESCENT_INTO_BOX_DURATION
+    this.remainingTime -= deltaTime
 
     if (this.leaping) {
       this.leapTimer.advanceClock(deltaTime)

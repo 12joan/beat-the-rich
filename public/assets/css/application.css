@@ -7,7 +7,7 @@ body {
   background: black;
   font-family: 'CYN Gamer', sans-serif;
   color: white;
-  text-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.25);
+  text-shadow: 0 0.125rem 0.5rem rgba(0, 0, 0, 0.5);
   max-width: 72rem;
 }
 
@@ -40,16 +40,24 @@ h1, h2, h3 {
   flex-direction: column;
 }
 
+#game-overlay-hud-countdown {
+  padding: 1rem;
+}
+
+#game-overlay-hud-countdown-value {
+  font-size: 1.5rem;
+}
+
 #game-overlay-hud-wealth {
   margin-top: auto;
-  padding: 1em;
+  padding: 1rem;
 }
 
 #game-overlay-hud-wealth-bar {
   background-color: black;
-  border-radius: 0.25em;
+  border-radius: 0.25rem;
   overflow: hidden;
-  box-shadow: 0 0.125em 0.25em rgba(0, 0, 0, 0.125);
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.125);
 }
 
 #game-overlay-hud-wealth-bar-fill {
@@ -59,8 +67,8 @@ h1, h2, h3 {
 
 #game-overlay-hud-wealth-bar-fill::after {
   content: attr(data-text);
-  padding: 0.5em 0.75em;
-  font-size: 0.8em;
+  padding: 0.5rem 0.75rem;
+  font-size: 0.8rem;
   word-break: initial;
   overflow-wrap: initial;
 }
