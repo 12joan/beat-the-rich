@@ -1,7 +1,5 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
-import GameComponent from './gameComponent.js'
-import HUD from './hud.js'
-import Level1 from './level1.js'
+import GameLogic from './gameLogic.js'
 
 const canvas = document.querySelector('#game-canvas')
 const scene = new THREE.Scene()
@@ -14,9 +12,7 @@ renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.localClippingEnabled = true
 
-const rootComponent = new GameComponent({ scene, camera, renderer, canvas })
-rootComponent.initializeChild(HUD)
-rootComponent.initializeChild(Level1)
+const rootComponent = new GameLogic({ scene, camera, renderer, canvas })
 rootComponent.abstractStart()
 
 let previousTime = performance.now()

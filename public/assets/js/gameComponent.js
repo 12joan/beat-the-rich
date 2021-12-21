@@ -16,8 +16,6 @@ class GameComponent {
 
   abstractStart() {
     this.start()
-    this.children.forEach(child => child.abstractStart())
-    this.started = true
   }
 
   start() {}
@@ -42,10 +40,7 @@ class GameComponent {
 
   addChild(child) {
     this.children.push(child)
-
-    if (this.started)
-      child.start()
-
+    child.abstractStart()
     return child
   }
 

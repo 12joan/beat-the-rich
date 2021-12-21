@@ -1,5 +1,7 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
+import HUD from './hud.js'
+import Level1 from './level1.js'
 
 const ATTACK_MAX_DISTANCE = 2.5
 const ATTACK_MAX_ANGLE = THREE.MathUtils.degToRad(30)
@@ -10,16 +12,15 @@ class GameLogic extends GameComponent {
   tags = ['GameLogic']
 
   start() {
+    this.hud = this.initializeChild(HUD)
+    this.currentLevel = this.initializeChild(Level1)
     this.enemyWealth = this.enemy.startingWealth
-    this.update()
   }
 
   update() {
-    const hud = this.find('HUD')
-
-    hud.data.startingWealth = this.enemy.startingWealth
-    hud.data.currentWealth = this.enemyWealth
-    hud.data.remainingTime = this.enemy.remainingTime
+    this.hud.data.startingWealth = this.enemy.startingWealth
+    this.hud.data.currentWealth = this.enemyWealth
+    this.hud.data.remainingTime = this.enemy.remainingTime
   }
 
   handleAttack() {
@@ -45,7 +46,7 @@ class GameLogic extends GameComponent {
   }
 
   levelCompleted() {
-    this.find('Level').destroy()
+    this.currentLevel.destroy()
   }
 
   get enemy() {
