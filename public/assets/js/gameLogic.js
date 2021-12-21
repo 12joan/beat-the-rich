@@ -25,8 +25,11 @@ class GameLogic extends GameComponent {
   handleAttack() {
     const lookDirection = new THREE.Vector3()
     this.camera.getWorldDirection(lookDirection)
+    lookDirection.y = 0
 
     const toEnemy = this.enemy.position.clone().sub(this.camera.position)
+    toEnemy.y = 0
+
     const distance = toEnemy.length()
     const angle = toEnemy.angleTo(lookDirection)
 
