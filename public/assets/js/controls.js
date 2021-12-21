@@ -20,6 +20,10 @@ class Controls extends GameComponent {
     this.canvas.addEventListener('click', this.onClick)
   }
 
+  reset() {
+    this.velocity.set(0, 0, 0)
+  }
+
   teardown() {
     this.canvas.removeEventListener('click', this.onClick)
   }

@@ -7,15 +7,10 @@ import JeffBezos from './jeffBezos.js'
 
 class Level1 extends GameComponent {
   start() {
+    this.camera.position.set(0, 1, 15)
+    this.camera.rotation.set(0, 0, 0)
+
     this.initializeChild(LevelEssentials)
-
-    // White background color
-    this.scene.background = new THREE.Color(0xffffff)
-
-    // Ambient light
-    this.scene.add(
-      this.objectRequiresCleanup(new THREE.AmbientLight(0x404040))
-    )
 
     this.initializeChild(Sky)
     this.initializeChild(Floor)

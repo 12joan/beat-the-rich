@@ -13,6 +13,8 @@ const DESCENT_INTO_BOX_DURATION = 60
 
 class JeffBezos extends GameComponent {
   tags = ['Enemy']
+  enemyName = 'Jeff Bezos'
+  countdownLabel = 'Same-day delivery shipping in:'
   startingWealth = 201.7e9
 
   leaping = false

@@ -54,7 +54,7 @@ h1, h2, h3 {
 }
 
 #game-overlay-hud-wealth-bar {
-  background-color: black;
+  background-color: #333333;
   border-radius: 0.25rem;
   overflow: hidden;
   box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.125);

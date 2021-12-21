@@ -8,7 +8,6 @@ class HUD extends GameComponent {
 
   overlayEl = document.querySelector('#game-overlay')
   countdownEl = document.querySelector('#game-overlay-hud-countdown-value')
-  wealthFillEl = this.overlayEl.querySelector('#game-overlay-hud-wealth-bar-fill')
 
   start() {
     window.addEventListener('resize', this.updateOverlayPosition.bind(this))
@@ -19,10 +18,14 @@ class HUD extends GameComponent {
   }
 
   update() {
+    this.overlayEl.querySelector('#game-overlay-hud-countdown-label').innerText = this.data.countdownLabel
     this.countdownEl.innerText = Math.max(0, Math.ceil(this.data.remainingTime)) + ' seconds'
 
-    this.wealthFillEl.setAttribute('data-text', this.formatWealth(this.data.currentWealth))
-    this.wealthFillEl.style.width = this.data.currentWealth > 0
+    this.overlayEl.querySelector('#game-overlay-hud-wealth-name').innerText = this.data.enemyName
+
+    const wealthFillEl = this.overlayEl.querySelector('#game-overlay-hud-wealth-bar-fill')
+    wealthFillEl.setAttribute('data-text', this.formatWealth(this.data.currentWealth))
+    wealthFillEl.style.width = this.data.currentWealth > 0
       ? (100 * this.data.currentWealth / this.data.startingWealth) + '%'
       : '0'
 
