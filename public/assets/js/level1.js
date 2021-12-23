@@ -1,6 +1,6 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
-import LevelEssentials from './levelEssentials.js'
+import Shovel from './shovel.js'
 import Sky from './sky.js'
 import Floor from './floor.js'
 import JeffBezos from './jeffBezos.js'
@@ -10,12 +10,13 @@ class Level1 extends GameComponent {
     this.camera.position.set(0, 1, 15)
     this.camera.rotation.set(0, 0, 0)
 
-    this.initializeChild(LevelEssentials)
+    this.scene.add(this.objectRequiresCleanup(
+      new THREE.AmbientLight(0x404040)
+    ))
 
+    this.initializeChild(Shovel)
     this.initializeChild(Sky)
     this.initializeChild(Floor)
-
-    // Enemy
     this.initializeChild(JeffBezos)
   }
 }

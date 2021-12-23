@@ -1,5 +1,8 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
+import { loadResources } from './loadedResources.js'
 import GameLogic from './gameLogic.js'
+
+await loadResources()
 
 const canvas = document.querySelector('#game-canvas')
 const scene = new THREE.Scene()
