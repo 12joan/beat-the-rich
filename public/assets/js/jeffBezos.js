@@ -3,13 +3,13 @@ import GameComponent from './gameComponent.js'
 import { getResource } from './loadedResources.js'
 import Timer from './timer.js'
 
-const DELAY_BETWEEN_LEAPS = 1
+const DELAY_BETWEEN_LEAPS = 1.5
 const LEAP_DURATION = 0.5
 const LEAP_HEIGHT = 1.25
 const LEAP_SPEED = 6
 
 const BOX_HEIGHT = 0.5
-const CUT_OUT_HEIGHT = 1.5
+const CUT_OUT_HEIGHT = 1.7
 const DESCENT_INTO_BOX_DURATION = 60
 
 class JeffBezos extends GameComponent {
@@ -46,12 +46,16 @@ class JeffBezos extends GameComponent {
 
     this.scene.add(this.box)
 
-    const cutOutGeometry = this.requiresCleanup(new THREE.BoxGeometry(0.5, CUT_OUT_HEIGHT, 0.02), 'dispose')
+    this.cutOut = this.objectRequiresCleanup(getResource('jeff.obj'))
 
-    this.cutOut = new THREE.Mesh(cutOutGeometry, material)
-    this.cutOut.castShadow = true
-    this.cutOut.receiveShadow = true
-    this.cutOut.position.y = cutOutGeometry.parameters.height / 2
+    this.cutOut.traverse(node => {
+      if (node instanceof THREE.Mesh) {
+        node.castShadow = true
+        node.material.clippingPlanes = [this.clippingPlane]
+        node.material.clipShadows = true
+      }
+    })
+
     this.box.add(this.cutOut)
   }
 
@@ -68,9 +72,6 @@ class JeffBezos extends GameComponent {
 
       // Travel in a random direction
       this.box.position.add(this.leapDirection.clone().multiplyScalar(LEAP_SPEED * deltaTime))
-
-      // Rotate in the direction of travel
-      this.box.rotation.y = this.leapDirection.angleTo(new THREE.Vector3(0, 0, 1))
 
       this.leapTimer.afterTime(LEAP_DURATION, () => {
         this.leaping = false

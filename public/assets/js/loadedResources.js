@@ -19,6 +19,7 @@ const loadModel = (objUrl, mtlUrl) => {
 
 const RESOURCE_PROMISES = {
   'box.obj': loadModel('/assets/models/box.obj', '/assets/materials/box.mtl'),
+  'jeff.obj': loadModel('/assets/models/jeff.obj', '/assets/materials/jeff.mtl'),
   'space_background.vert': loadWithType(THREE.FileLoader, '/assets/shaders/space_background/space_background.vert'),
   'space_background.frag': loadWithType(THREE.FileLoader, '/assets/shaders/space_background/space_background.frag'),
   'star.png': loadWithType(THREE.TextureLoader, '/assets/sprites/star.png'),
