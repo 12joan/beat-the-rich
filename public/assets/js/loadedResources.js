@@ -1,14 +1,28 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
+import { OBJLoader } from '../../vendor/js/three.js/examples/jsm/loaders/OBJLoader.js'
+import { MTLLoader } from '../../vendor/js/three.js/examples/jsm/loaders/MTLLoader.js'
 
-const load = (klass, url) => new Promise((resolve, reject) =>
-  (new klass()).load(url, resolve, () => {}, reject)
-)
+const loadWithLoader = (loader, url) => new Promise((resolve, reject) => loader.load(url, resolve, () => {}, reject))
+const loadWithType = (klass, url) => loadWithLoader(new klass(), url)
+
+const loadModel = (objUrl, mtlUrl) => {
+  const mtlLoader = new MTLLoader()
+  mtlLoader.setMaterialOptions({ side: THREE.DoubleSide })
+
+  return loadWithLoader(mtlLoader, mtlUrl).then(materialCreator => {
+    const objLoader = new OBJLoader()
+    objLoader.setMaterials(materialCreator)
+
+    return loadWithLoader(objLoader, objUrl)
+  })
+}
 
 const RESOURCE_PROMISES = {
-  'space_background.vert': load(THREE.FileLoader, '/assets/shaders/space_background/space_background.vert'),
-  'space_background.frag': load(THREE.FileLoader, '/assets/shaders/space_background/space_background.frag'),
-  'star.png': load(THREE.TextureLoader, '/assets/sprites/star.png'),
-  'sun.png': load(THREE.TextureLoader, '/assets/sprites/sun.png'),
+  'box.obj': loadModel('/assets/models/box.obj', '/assets/materials/box.mtl'),
+  'space_background.vert': loadWithType(THREE.FileLoader, '/assets/shaders/space_background/space_background.vert'),
+  'space_background.frag': loadWithType(THREE.FileLoader, '/assets/shaders/space_background/space_background.frag'),
+  'star.png': loadWithType(THREE.TextureLoader, '/assets/sprites/star.png'),
+  'sun.png': loadWithType(THREE.TextureLoader, '/assets/sprites/sun.png'),
 }
 
 const resources = {}

@@ -1,5 +1,6 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
+import { getResource } from './loadedResources.js'
 import Timer from './timer.js'
 
 const DELAY_BETWEEN_LEAPS = 1
@@ -34,12 +35,15 @@ class JeffBezos extends GameComponent {
       clipShadows: true,
     }), 'dispose')
 
-    const boxGeometry = this.requiresCleanup(new THREE.BoxGeometry(0.75, BOX_HEIGHT, 0.55), 'dispose')
-
-    this.box = this.objectRequiresCleanup(new THREE.Mesh(boxGeometry, material))
-    this.box.castShadow = true
-    this.box.receiveShadow = true
+    this.box = this.objectRequiresCleanup(getResource('box.obj'))
     this.setAltitude(0)
+
+    this.box.traverse(node => {
+      if (node instanceof THREE.Mesh) {
+        node.castShadow = true
+      }
+    })
+
     this.scene.add(this.box)
 
     const cutOutGeometry = this.requiresCleanup(new THREE.BoxGeometry(0.5, CUT_OUT_HEIGHT, 0.02), 'dispose')
@@ -47,7 +51,7 @@ class JeffBezos extends GameComponent {
     this.cutOut = new THREE.Mesh(cutOutGeometry, material)
     this.cutOut.castShadow = true
     this.cutOut.receiveShadow = true
-    this.cutOut.position.y = (cutOutGeometry.parameters.height / 2) - (boxGeometry.parameters.height / 2)
+    this.cutOut.position.y = cutOutGeometry.parameters.height / 2
     this.box.add(this.cutOut)
   }
 
@@ -89,7 +93,7 @@ class JeffBezos extends GameComponent {
   }
 
   setAltitude(altitude) {
-    this.box.position.y = (BOX_HEIGHT / 2) + altitude
+    this.box.position.y = altitude
     this.clippingPlane.constant = -altitude
   }
 
