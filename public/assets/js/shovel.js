@@ -1,5 +1,6 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
+import { getResource } from './loadedResources.js'
 import InputManager from './inputManager.js'
 import Timer from './timer.js'
 
@@ -25,23 +26,16 @@ class Shovel extends GameComponent {
     this.cameraPivot = this.objectRequiresCleanup(new THREE.Object3D())
     this.scene.add(this.cameraPivot)
 
-    this.rotationPivot = new THREE.Object3D()
-    this.rotationPivot.position.set(0.2, -0.5 * SHOVEL_HEIGHT, -0.75)
-    this.cameraPivot.add(this.rotationPivot)
+    this.shovel = this.objectRequiresCleanup(getResource('shovel.obj'))
 
-    const material = this.requiresCleanup(new THREE.MeshPhysicalMaterial({
-      color: 0xddaa88,
-      metalness: 0,
-      roughness: 0.5,
-      clearcoat: 0.75,
-    }), 'dispose')
+    this.shovel.traverse(node => {
+      if (node instanceof THREE.Mesh) {
+        node.castShadow = true
+      }
+    })
 
-    const shovelGeometry = this.requiresCleanup(new THREE.BoxGeometry(0.1, SHOVEL_HEIGHT, 0.01), 'dispose')
-
-    this.shovel = new THREE.Mesh(shovelGeometry, material)
-    this.shovel.position.set(0, SHOVEL_HEIGHT / 2, 0)
-    this.shovel.castShadow = true
-    this.rotationPivot.add(this.shovel)
+    this.shovel.position.set(0.2, -0.5 * SHOVEL_HEIGHT, -0.75)
+    this.cameraPivot.add(this.shovel)
 
     this.followCamera()
     this.updateShovelAngle()
@@ -89,7 +83,7 @@ class Shovel extends GameComponent {
   }
 
   updateShovelAngle() {
-    this.rotationPivot.rotation.set(-this.shovelAngle, SHOVEL_ANGLE_Y, 0, 'YXZ')
+    this.shovel.rotation.set(-this.shovelAngle, SHOVEL_ANGLE_Y, 0, 'YXZ')
   }
 }
 
