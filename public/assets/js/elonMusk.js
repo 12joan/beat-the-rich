@@ -1,6 +1,9 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
+import { getResource } from './loadedResources.js'
 import Timer from './timer.js'
+
+const ROCKET_OFFSET_Y = -0.2
 
 const DELAY_BEFORE_ROTATION = 3
 const ROTATION_DURATION = 1.5
@@ -25,18 +28,15 @@ class ElonMusk extends GameComponent {
   remainingTime = 60
 
   start() {
-    const material = this.requiresCleanup(new THREE.MeshPhysicalMaterial({
-      color: 0xddaa88,
-      metalness: 0,
-      roughness: 0.5,
-      clearcoat: 0.75,
-    }), 'dispose')
+    this.rocket = this.objectRequiresCleanup(getResource('rocket.obj'))
+    this.rocket.scale.set(1.5, 1.5, 1.5)
 
-    const rocketGeometry = this.requiresCleanup(new THREE.BoxGeometry(0.5, 1.5, 0.5), 'dispose')
+    this.rocket.traverse(node => {
+      if (node instanceof THREE.Mesh) {
+        node.castShadow = true
+      }
+    })
 
-    this.rocket = this.objectRequiresCleanup(new THREE.Mesh(rocketGeometry, material))
-    this.rocket.castShadow = true
-    this.rocket.receiveShadow = true
     this.scene.add(this.rocket)
 
     this.updateRocketPosition()
@@ -73,7 +73,7 @@ class ElonMusk extends GameComponent {
 
     this.rocket.rotation.y = -this.angle
 
-    this.rocket.position.y = BOB_AMPLITUDE * Math.sin(this.bobPhase)
+    this.rocket.position.y = ROCKET_OFFSET_Y + (BOB_AMPLITUDE * Math.sin(this.bobPhase))
   }
 
   get position() {

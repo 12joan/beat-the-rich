@@ -1,0 +1,13 @@
+# Blender MTL File: 'rocket.blend'
+# Material Count: 1
+
+newmtl initialShadingGroup
+Ns 710.707107
+Ka 0.859091 0.859091 0.859091
+Kd 0.800000 0.800000 0.800000
+Ks 0.452273 0.452273 0.452273
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 3
+map_Kd ../textures/rocket.png

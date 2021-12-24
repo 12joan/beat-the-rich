@@ -26,15 +26,6 @@ class JeffBezos extends GameComponent {
   start() {
     this.clippingPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
 
-    const material = this.requiresCleanup(new THREE.MeshPhysicalMaterial({
-      color: 0xddaa88,
-      metalness: 0,
-      roughness: 0.5,
-      clearcoat: 0.75,
-      clippingPlanes: [this.clippingPlane],
-      clipShadows: true,
-    }), 'dispose')
-
     this.box = this.objectRequiresCleanup(getResource('box.obj'))
     this.setAltitude(0)
 

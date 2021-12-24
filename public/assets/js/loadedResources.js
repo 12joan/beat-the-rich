@@ -21,6 +21,7 @@ const RESOURCE_PROMISES = {
   'shovel.obj': loadModel('/assets/models/shovel.obj', '/assets/materials/shovel.mtl'),
   'box.obj': loadModel('/assets/models/box.obj', '/assets/materials/box.mtl'),
   'jeff.obj': loadModel('/assets/models/jeff.obj', '/assets/materials/jeff.mtl'),
+  'rocket.obj': loadModel('/assets/models/rocket.obj', '/assets/materials/rocket.mtl'),
   'space_background.vert': loadWithType(THREE.FileLoader, '/assets/shaders/space_background/space_background.vert'),
   'space_background.frag': loadWithType(THREE.FileLoader, '/assets/shaders/space_background/space_background.frag'),
   'star.png': loadWithType(THREE.TextureLoader, '/assets/sprites/star.png'),
