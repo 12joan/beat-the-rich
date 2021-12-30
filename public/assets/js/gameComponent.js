@@ -3,6 +3,7 @@ import CleanUpHelper from './cleanUpHelper.js'
 class GameComponent {
   tags = []
 
+  active = true
   cleanUpHelper = new CleanUpHelper()
 
   constructor({ parentComponent = undefined, scene, camera, renderer, canvas }) {
@@ -21,8 +22,10 @@ class GameComponent {
   start() {}
 
   abstractUpdate(deltaTime) {
-    this.update(deltaTime)
-    this.children.forEach(child => child.abstractUpdate(deltaTime))
+    if (this.active) {
+      this.update(deltaTime)
+      this.children.forEach(child => child.abstractUpdate(deltaTime))
+    }
   }
 
   update(deltaTime) {}
