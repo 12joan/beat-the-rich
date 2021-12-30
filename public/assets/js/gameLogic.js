@@ -1,6 +1,6 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
-import HUD from './hud.js'
+import Overlay from './overlay.js'
 import Controls from './controls.js'
 import Level1 from './level1.js'
 import Level2 from './level2.js'
@@ -14,7 +14,7 @@ class GameLogic extends GameComponent {
   tags = ['GameLogic']
 
   start() {
-    this.hud = this.initializeChild(HUD)
+    this.initializeChild(Overlay)
     this.controls = this.initializeChild(Controls)
     this.startLevel(Level1)
   }
@@ -30,6 +30,7 @@ class GameLogic extends GameComponent {
   startLevel(klass) {
     this.currentLevel = this.initializeChild(klass)
     this.controls.reset()
+    this.enemy = this.find('Enemy')
     this.enemyWealth = this.enemy.startingWealth
   }
 
@@ -60,8 +61,8 @@ class GameLogic extends GameComponent {
     this.startLevel(Level2)
   }
 
-  get enemy() {
-    return this.find('Enemy')
+  get hud() {
+    return (this._hud ??= this.find('HUD'))
   }
 }
 

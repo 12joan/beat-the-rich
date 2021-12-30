@@ -17,19 +17,43 @@ renderer.localClippingEnabled = true
 const rootComponent = new GameLogic({ scene, camera, renderer, canvas })
 rootComponent.abstractStart()
 
+const controls = rootComponent.find('Controls')
+const menuController = rootComponent.find('Menus')
+
+menuController.setMenu('main-menu', controls.lock.bind(controls))
+
+const onFocus = () => {
+  menuController.setMenu('none')
+
+  canvas.classList.remove('blur')
+  document.querySelector('#game-overlay-hud').classList.remove('blur')
+}
+
+const onBlur = () => {
+  menuController.setMenu('pause-menu', controls.lock.bind(controls))
+
+  canvas.classList.add('blur')
+  document.querySelector('#game-overlay-hud').classList.add('blur')
+}
+
 let previousTime = performance.now()
 let upToDate = false
+let wasLocked = false
 
 function updateLoop() {
   const time = performance.now()
   const deltaTime = (time - previousTime) / 1000
 
-  if (rootComponent.find('Controls').isLocked) {
+  if (controls.isLocked) {
     rootComponent.abstractUpdate(deltaTime)
     upToDate = false
+    if (!wasLocked) onFocus()
+  } else {
+    if (wasLocked) onBlur()
   }
 
   previousTime = time
+  wasLocked = controls.isLocked
 
   if (!upToDate) {
     renderer.render(scene, camera)

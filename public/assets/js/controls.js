@@ -15,17 +15,10 @@ class Controls extends GameComponent {
   start() {
     this.controls = new PointerLockControls(this.camera, document.body)
     this.scene.add(this.objectRequiresCleanup(this.controls.getObject()))
-
-    this.onClick = () => this.controls.lock()
-    this.canvas.addEventListener('click', this.onClick)
   }
 
   reset() {
     this.velocity.set(0, 0, 0)
-  }
-
-  teardown() {
-    this.canvas.removeEventListener('click', this.onClick)
   }
 
   update(deltaTime) {
@@ -59,6 +52,10 @@ class Controls extends GameComponent {
 
     this.controls.moveForward(movement.y)
     this.controls.moveRight(movement.x)
+  }
+
+  lock() {
+    this.controls.lock()
   }
 
   get isLocked() {

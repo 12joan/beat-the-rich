@@ -15,6 +15,22 @@ h1, h2, h3 {
   margin: 0;
 }
 
+button {
+  font-family: inherit;
+  background-color: white;
+  color: green;
+  width: 100%;
+  padding: 1em;
+}
+
+.d-none {
+  display: none !important;
+}
+
+.blur {
+  filter: blur(10px);
+}
+
 #title {
   margin-top: 3em;
   margin-bottom: 0.5em;
@@ -28,16 +44,36 @@ h1, h2, h3 {
 
 #game-overlay {
   position: absolute;
-  pointer-events: none;
-  user-select: none;
+}
+
+#game-overlay-hud, .menu {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.menu {
+  display: none;
+  justify-content: center;
+  align-items: center;
+}
+
+[data-current-menu=main-menu] [data-menu=main-menu],
+[data-current-menu=pause-menu] [data-menu=pause-menu] {
+  display: flex;
+}
+
+.menu-background {
+  background-color: rgba(0, 0, 0, 0.5);
+  padding: 1em;
+  text-align: center;
 }
 
 #game-overlay-hud {
-  width: 100%;
-  height: 100%;
-
-  display: flex;
-  flex-direction: column;
+  pointer-events: none;
+  user-select: none;
 }
 
 #game-overlay-hud-countdown {
