@@ -11,8 +11,8 @@ const ROTATION_DURATION = 1
 const ROTATION_SPEED = THREE.MathUtils.degToRad(60)
 const ROTATION_RADIUS = 8
 
-const BOB_SPEED = THREE.MathUtils.degToRad(90)
-const BOB_AMPLITUDE = 0.1
+const BOB_SPEED = THREE.MathUtils.degToRad(120)
+const BOB_AMPLITUDE = 0.2
 
 class ElonMusk extends GameComponent {
   tags = ['Enemy']
