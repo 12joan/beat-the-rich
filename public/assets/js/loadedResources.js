@@ -19,6 +19,7 @@ const loadModel = (objUrl, mtlUrl) => {
 
 const RESOURCE_PROMISES = {
   'shovel.obj': loadModel('/assets/models/shovel.obj', '/assets/materials/shovel.mtl'),
+  'stone.png': loadWithType(THREE.TextureLoader, '/assets/textures/stone.png'),
   'box.obj': loadModel('/assets/models/box.obj', '/assets/materials/box.mtl'),
   'jeff.obj': loadModel('/assets/models/jeff.obj', '/assets/materials/jeff.mtl'),
   'rocket.obj': loadModel('/assets/models/rocket.obj', '/assets/materials/rocket.mtl'),
