@@ -20,7 +20,11 @@ rootComponent.abstractStart()
 const controls = rootComponent.find('Controls')
 const menuController = rootComponent.find('Menus')
 
-menuController.setMenu('main-menu', controls.lock.bind(controls))
+menuController.setMenu('main-menu', () => {
+  menuController.setMenu('level-1', () => {
+    controls.lock()
+  })
+})
 
 const onFocus = () => {
   menuController.setMenu('none')

@@ -13,10 +13,12 @@ const WEALTH_REDUCTION_PER_HIT = 15e9 + Math.round(1e8 * Math.random())
 class GameLogic extends GameComponent {
   tags = ['GameLogic']
 
+  levels = [Level1, Level2]
+
   start() {
     this.initializeChild(Overlay)
     this.controls = this.initializeChild(Controls)
-    this.startLevel(Level1)
+    this.startLevel()
   }
 
   update() {
@@ -32,17 +34,16 @@ class GameLogic extends GameComponent {
     }
   }
 
-  startLevel(klass) {
-    this.currentLevelKlass = klass
+  startLevel() {
     this.currentLevel?.destroy()
-    this.currentLevel = this.initializeChild(klass)
+    this.currentLevel = this.initializeChild(this.levels[0])
     this.controls.reset()
     this.enemy = this.find('Enemy')
     this.enemyWealth = this.enemy.startingWealth
   }
 
   restartLevel() {
-    this.startLevel(this.currentLevelKlass)
+    this.startLevel()
   }
 
   handleAttack() {
@@ -73,7 +74,6 @@ class GameLogic extends GameComponent {
 
   gameOver() {
     const controls = this.find('Controls')
-
     controls.unlock()
 
     this.find('Menus').setMenu('game-over', () => {
@@ -83,7 +83,20 @@ class GameLogic extends GameComponent {
   }
 
   levelCompleted() {
-    this.startLevel(Level2)
+    const controls = this.find('Controls')
+    controls.unlock()
+
+    this.levels.shift()
+
+    if (this.levels.length > 0) {
+      this.startLevel()
+
+      this.find('Menus').setMenu('level-2', () => {
+        controls.lock()
+      })
+    } else {
+      this.find('Menus').setMenu('game-completed')
+    }
   }
 
   get hud() {
