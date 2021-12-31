@@ -58,6 +58,10 @@ class Controls extends GameComponent {
     this.controls.lock()
   }
 
+  unlock() {
+    this.controls.unlock()
+  }
+
   get isLocked() {
     return this.controls.isLocked
   }

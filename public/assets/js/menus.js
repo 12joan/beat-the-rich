@@ -11,15 +11,11 @@ class Menus extends GameComponent {
   start() {
     Array.from(this.menuEl.querySelectorAll('button')).forEach(button => button.addEventListener('click', () => {
       this.onButton?.()
-      /*this.menuEl.dataset.currentMenu = 'none'
-
-      this.canvas.classList.remove('blur')
-      document.querySelector('#game-overlay-hud').classList.remove('blur')
-
-      document.querySelector('#game-overlay').classList.add('no-pointer-events')
-
-      this.find('Controls').controls.lock()*/
     }))
+  }
+
+  get currentMenu() {
+    return this.menuEl.dataset.currentMenu
   }
 
   setMenu(menuName, onButton = undefined) {

@@ -5,11 +5,11 @@ import Timer from './timer.js'
 
 const ROCKET_OFFSET_Y = -0.2
 
-const DELAY_BEFORE_ROTATION = 3
-const ROTATION_DURATION = 1.5
+const DELAY_BEFORE_ROTATION = 1.5
+const ROTATION_DURATION = 1
 
-const ROTATION_SPEED = THREE.MathUtils.degToRad(40)
-const ROTATION_RADIUS = 5
+const ROTATION_SPEED = THREE.MathUtils.degToRad(60)
+const ROTATION_RADIUS = 8
 
 const BOB_SPEED = THREE.MathUtils.degToRad(90)
 const BOB_AMPLITUDE = 0.1
@@ -28,7 +28,7 @@ class ElonMusk extends GameComponent {
   remainingTime = 60
 
   start() {
-    this.rocket = this.objectRequiresCleanup(getResource('rocket.obj'))
+    this.rocket = this.objectRequiresCleanup(this.resetObject(getResource('rocket.obj')))
     this.rocket.scale.set(1.5, 1.5, 1.5)
 
     this.rocket.traverse(node => {

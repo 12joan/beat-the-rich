@@ -10,7 +10,7 @@ const LEAP_SPEED = 6
 
 const BOX_HEIGHT = 0.5
 const CUT_OUT_HEIGHT = 1.7
-const DESCENT_INTO_BOX_DURATION = 60
+const DESCENT_INTO_BOX_DURATION = 20
 
 class JeffBezos extends GameComponent {
   tags = ['Enemy']
@@ -26,7 +26,7 @@ class JeffBezos extends GameComponent {
   start() {
     this.clippingPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
 
-    this.box = this.objectRequiresCleanup(getResource('box.obj'))
+    this.box = this.objectRequiresCleanup(this.resetObject(getResource('box.obj')))
     this.setAltitude(0)
 
     this.box.traverse(node => {
@@ -37,7 +37,7 @@ class JeffBezos extends GameComponent {
 
     this.scene.add(this.box)
 
-    this.cutOut = this.objectRequiresCleanup(getResource('jeff.obj'))
+    this.cutOut = this.objectRequiresCleanup(this.resetObject(getResource('jeff.obj')))
 
     this.cutOut.traverse(node => {
       if (node instanceof THREE.Mesh) {

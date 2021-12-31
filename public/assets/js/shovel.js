@@ -26,7 +26,7 @@ class Shovel extends GameComponent {
     this.cameraPivot = this.objectRequiresCleanup(new THREE.Object3D())
     this.scene.add(this.cameraPivot)
 
-    this.shovel = this.objectRequiresCleanup(getResource('shovel.obj'))
+    this.shovel = this.objectRequiresCleanup(this.resetObject(getResource('shovel.obj')))
 
     this.shovel.traverse(node => {
       if (node instanceof THREE.Mesh) {

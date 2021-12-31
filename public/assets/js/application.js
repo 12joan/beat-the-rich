@@ -30,7 +30,8 @@ const onFocus = () => {
 }
 
 const onBlur = () => {
-  menuController.setMenu('pause-menu', controls.lock.bind(controls))
+  if (menuController.currentMenu === 'none')
+    menuController.setMenu('pause-menu', controls.lock.bind(controls))
 
   canvas.classList.add('blur')
   document.querySelector('#game-overlay-hud').classList.add('blur')

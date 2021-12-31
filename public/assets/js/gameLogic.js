@@ -25,13 +25,24 @@ class GameLogic extends GameComponent {
     this.hud.data.enemyName = this.enemy.enemyName
     this.hud.data.startingWealth = this.enemy.startingWealth
     this.hud.data.currentWealth = this.enemyWealth
+
+    if (this.enemy.active && this.enemy.remainingTime <= 0) {
+      this.enemy.active = false
+      setTimeout(() => this.gameOver(), 1000)
+    }
   }
 
   startLevel(klass) {
+    this.currentLevelKlass = klass
+    this.currentLevel?.destroy()
     this.currentLevel = this.initializeChild(klass)
     this.controls.reset()
     this.enemy = this.find('Enemy')
     this.enemyWealth = this.enemy.startingWealth
+  }
+
+  restartLevel() {
+    this.startLevel(this.currentLevelKlass)
   }
 
   handleAttack() {
@@ -50,16 +61,28 @@ class GameLogic extends GameComponent {
   }
 
   handleHit() {
-    this.enemyWealth = Math.max(0, this.enemyWealth - WEALTH_REDUCTION_PER_HIT)
+    if (this.enemy.active) {
+      this.enemyWealth = Math.max(0, this.enemyWealth - WEALTH_REDUCTION_PER_HIT)
 
-    if (this.enemy.active && this.enemyWealth == 0) {
-      this.enemy.active = false
-      setTimeout(() => this.levelCompleted(), 1000)
+      if (this.enemyWealth == 0) {
+        this.enemy.active = false
+        setTimeout(() => this.levelCompleted(), 1000)
+      }
     }
   }
 
+  gameOver() {
+    const controls = this.find('Controls')
+
+    controls.unlock()
+
+    this.find('Menus').setMenu('game-over', () => {
+      this.restartLevel()
+      controls.lock()
+    })
+  }
+
   levelCompleted() {
-    this.currentLevel.destroy()
     this.startLevel(Level2)
   }
 

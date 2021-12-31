@@ -89,6 +89,12 @@ class GameComponent {
 
     return null
   }
+
+  resetObject(object) {
+    object.position.set(0, 0, 0)
+    object.rotation.set(0, 0, 0)
+    return object
+  }
 }
 
 export default GameComponent
