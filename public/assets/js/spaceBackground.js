@@ -2,13 +2,13 @@ import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
 import { getResource } from './loadedResources.js'
 
-const STAR_COUNT = 5000
+const STAR_COUNT = 7500
 const RADIUS = 1000
 const RADIUS_VARIATION = 750
 const MAX_ALTITUDE = 300
 const MIN_ALTITUDE = -300
 const STAR_SIZE = 1000
-const STAR_SPEED = 2
+const STAR_SPEED = 40
 const SUN_SPEED = 5
 
 class SpaceBackground extends GameComponent {

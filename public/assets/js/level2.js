@@ -12,7 +12,7 @@ class Level2 extends GameComponent {
     this.scene.background = new THREE.Color(0x000000)
 
     this.scene.add(this.objectRequiresCleanup(
-      new THREE.AmbientLight(0x101010)
+      new THREE.AmbientLight(0x202020)
     ))
 
     this.initializeChild(Shovel)
