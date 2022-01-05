@@ -13,100 +13,92 @@
   </head>
 
   <body>
-    <div id="title">
-      <h1>bEat the Rich</h1>
-      <h2>With an ACTUAL Shovel</h2>
-      <h3>To Redistribute Their Wealth</h3>
-    </div>
+    <canvas id="game-canvas" class="blur"></canvas>
 
-    <div id="game-container">
-      <canvas id="game-canvas" class="blur" width="1920" height="1080"></canvas>
+    <div id="game-overlay">
 
-      <div id="game-overlay" class="d-none">
+      <div id="game-overlay-hud" class="d-none blur">
+        <div id="game-overlay-hud-countdown">
+          <div id="game-overlay-hud-countdown-label"></div>
+          <div id="game-overlay-hud-countdown-value"></div>
+        </div>
 
-        <div id="game-overlay-hud" class="d-none blur">
-          <div id="game-overlay-hud-countdown">
-            <div id="game-overlay-hud-countdown-label"></div>
-            <div id="game-overlay-hud-countdown-value"></div>
+        <div id="game-overlay-hud-wealth">
+          <strong id="game-overlay-hud-wealth-name"></strong>
+
+          <div id="game-overlay-hud-wealth-bar">
+            <div id="game-overlay-hud-wealth-bar-fill"></div>
           </div>
+        </div>
+      </div>
 
-          <div id="game-overlay-hud-wealth">
-            <strong id="game-overlay-hud-wealth-name"></strong>
+      <div id="game-overlay-menu" data-current-menu="none">
+        <div class="menu" data-menu="main-menu">
 
-            <div id="game-overlay-hud-wealth-bar">
-              <div id="game-overlay-hud-wealth-bar-fill"></div>
-            </div>
+          <div class="menu-background">
+            <h1>bEat the Rich</h1>
+
+            <p>
+            ...with an ACTUAL Shovel<br>
+            before the time runs out
+            </p>
+
+            <p>
+            Movement: WASD<br>
+            Look: mouse<br>
+            Shovel: click
+            </p>
+
+            <button type="button">Play</button>
           </div>
         </div>
 
-        <div id="game-overlay-menu" data-current-menu="none">
-          <div class="menu" data-menu="main-menu">
-
-            <div class="menu-background">
-              <h1>bEat the Rich</h1>
-
-              <p>
-                ...with an ACTUAL Shovel<br>
-                before the time runs out
-              </p>
-
-              <p>
-                Movement: WASD<br>
-                Look: mouse<br>
-                Shovel: click
-              </p>
-
-              <button type="button">Play</button>
-            </div>
+        <div class="menu" data-menu="pause-menu">
+          <div class="menu-background">
+            <h1>Game Paused</h1>
+            <p>Your shovel awaits you</p>
+            <button type="button">Resume</button>
           </div>
+        </div>
 
-          <div class="menu" data-menu="pause-menu">
-            <div class="menu-background">
-              <h1>Game Paused</h1>
-              <p>Your shovel awaits you</p>
-              <button type="button">Resume</button>
-            </div>
+        <div class="menu" data-menu="game-over">
+          <div class="menu-background">
+            <h1>Time's Up</h1>
+            <p>The Rich have Prevailed</p>
+            <button type="button">Never Give Up</button>
           </div>
+        </div>
 
-          <div class="menu" data-menu="game-over">
-            <div class="menu-background">
-              <h1>Time's Up</h1>
-              <p>The Rich have Prevailed</p>
-              <button type="button">Never Give Up</button>
-            </div>
+        <div class="menu" data-menu="level-1">
+          <div class="menu-background">
+            <h1>Level 1</h1>
+            <p>Uh oh! Don't let Jeff ship himself to paradise while minimum-wage workers and taxpayers pay his bills!</p>
+            <p>Same-day deliver a shovel right to his face and spread the wealth to people who deserve it!</p>
+            <button type="button">Redistribute Jeff's Wealth</button>
           </div>
+        </div>
 
-          <div class="menu" data-menu="level-1">
-            <div class="menu-background">
-              <h1>Level 1</h1>
-              <p>Uh oh! Don't let Jeff ship himself to paradise while minimum-wage workers and taxpayers pay his bills!</p>
-              <p>Same-day deliver a shovel right to his face and spread the wealth to people who deserve it!</p>
-              <button type="button">Redistribute Jeff's Wealth</button>
-            </div>
+        <div class="menu" data-menu="level-2">
+          <div class="menu-background">
+            <h1>Level 2</h1>
+            <p>Quick, grab your jetpack! Elon's about to launch himself into space!</p>
+            <p>Don't let Elon escape the catastrophic global warming caused by billionairs like him!</p>
+            <p>Launch, land and relaunch your shovel to send him crashing into the sun where he belongs.</p>
+            <button type="button">Redistribute Elon's Wealth</button>
           </div>
+        </div>
 
-          <div class="menu" data-menu="level-2">
-            <div class="menu-background">
-              <h1>Level 2</h1>
-              <p>Quick, grab your jetpack! Elon's about to launch himself into space!</p>
-              <p>Don't let Elon escape the catastrophic global warming caused by billionairs like him!</p>
-              <p>Launch, land and relaunch your shovel to send him crashing into the sun where he belongs.</p>
-              <button type="button">Redistribute Elon's Wealth</button>
-            </div>
+        <div class="menu" data-menu="game-completed">
+          <div class="menu-background">
+            <h1>We Succeeded</h1>
+            <p>You have redistributed over $500 billon from the 2 richest people in the world.</p>
+            <p>That's enough to give $5000 to every homeless person in the world, or $10,000,000 to every homeless person in the US.</p>
+            <button type="button">Donate to a Deserving Cause</button>
           </div>
-
-          <div class="menu" data-menu="game-completed">
-            <div class="menu-background">
-              <h1>We Succeeded</h1>
-              <p>You have redistributed over $500 billon from the 2 richest people in the world.</p>
-              <p>That's enough to give $5000 to every homeless person in the world, or $10,000,000 to every homeless person in the US.</p>
-              <button type="button">Donate to a Deserving Cause</button>
-            </div>
-          </div>
-
         </div>
 
       </div>
+
     </div>
   </body>
 </html>

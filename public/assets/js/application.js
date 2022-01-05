@@ -14,6 +14,15 @@ renderer.shadowMap.enabled = true
 renderer.shadowMap.type = THREE.PCFSoftShadowMap
 renderer.localClippingEnabled = true
 
+const updateRendererSize = () => {
+  renderer.setSize(window.innerWidth, window.innerHeight)
+  camera.aspect = window.innerWidth / window.innerHeight
+  camera.updateProjectionMatrix()
+}
+
+window.addEventListener('resize', updateRendererSize)
+updateRendererSize()
+
 const rootComponent = new GameLogic({ scene, camera, renderer, canvas })
 rootComponent.abstractStart()
 
