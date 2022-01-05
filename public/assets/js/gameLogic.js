@@ -95,7 +95,10 @@ class GameLogic extends GameComponent {
         controls.lock()
       })
     } else {
-      this.find('Menus').setMenu('game-completed')
+      this.find('Menus').setMenu('game-completed', () => {
+        window.open('https://choose.love/collections/daily-survival', '_blank')
+        window.location.reload()
+      })
     }
   }
 

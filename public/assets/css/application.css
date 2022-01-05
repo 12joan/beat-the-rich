@@ -64,7 +64,8 @@ button {
 [data-current-menu=pause-menu] [data-menu=pause-menu],
 [data-current-menu=level-1] [data-menu=level-1],
 [data-current-menu=level-2] [data-menu=level-2],
-[data-current-menu=game-over] [data-menu=game-over] {
+[data-current-menu=game-over] [data-menu=game-over],
+[data-current-menu=game-completed] [data-menu=game-completed] {
   display: flex;
 }
 
