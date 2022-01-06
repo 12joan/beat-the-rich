@@ -72,8 +72,12 @@ class Shovel extends GameComponent {
   }
 
   followCamera() {
-    this.cameraPivot.position.copy(this.camera.position)
-    this.cameraPivot.quaternion.copy(this.camera.quaternion)
+    const playerCharacter = this.find('PlayerCharacter')
+
+    if (playerCharacter !== null) {
+      this.cameraPivot.position.copy(playerCharacter.position)
+      this.cameraPivot.quaternion.copy(playerCharacter.quaternion)
+    }
   }
 
   updateShovelAngle() {

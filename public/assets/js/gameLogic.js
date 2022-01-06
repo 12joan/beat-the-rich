@@ -51,7 +51,7 @@ class GameLogic extends GameComponent {
     this.camera.getWorldDirection(lookDirection)
     lookDirection.y = 0
 
-    const toEnemy = this.enemy.position.clone().sub(this.camera.position)
+    const toEnemy = this.enemy.position.clone().sub(this.find('PlayerCharacter').position)
     toEnemy.y = 0
 
     const distance = toEnemy.length()

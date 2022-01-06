@@ -10,7 +10,7 @@ const MAX_SPEED = 6
 class Controls extends GameComponent {
   tags = ['Controls']
 
-  velocity = new THREE.Vector2()
+  velocity = new THREE.Vector3()
 
   start() {
     this.controls = new PointerLockControls(this.camera, document.body)
@@ -22,13 +22,13 @@ class Controls extends GameComponent {
   }
 
   update(deltaTime) {
-    const inputHeading = new THREE.Vector2()
+    const inputHeading = new THREE.Vector3()
 
     if (InputManager.getKey('w'))
-      inputHeading.y += 1
+      inputHeading.z -= 1
 
     if (InputManager.getKey('s'))
-      inputHeading.y -= 1
+      inputHeading.z += 1
 
     if (InputManager.getKey('a'))
       inputHeading.x -= 1
@@ -36,7 +36,7 @@ class Controls extends GameComponent {
     if (InputManager.getKey('d'))
       inputHeading.x += 1
 
-    const acceleration = new THREE.Vector2()
+    const acceleration = new THREE.Vector3()
 
     // Accelerate according to input
     acceleration.add(inputHeading.clone().normalize().multiplyScalar(ACCELERATION))
@@ -49,9 +49,14 @@ class Controls extends GameComponent {
     this.velocity.clampLength(0, MAX_SPEED)
 
     const movement = this.velocity.clone().multiplyScalar(deltaTime)
+    const speed = movement.length()
 
-    this.controls.moveForward(movement.y)
-    this.controls.moveRight(movement.x)
+    // Rotate movement vector relative to camera
+    movement.applyMatrix4(new THREE.Matrix4().extractRotation(this.camera.matrix))
+    movement.y = 0
+    movement.setLength(speed)
+
+    this.find('PlayerCharacter')?.position?.add(movement)
   }
 
   lock() {

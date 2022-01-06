@@ -1,6 +1,6 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
-import Shovel from './shovel.js'
+import PlayerCharacter from './playerCharacter.js'
 import Sky from './sky.js'
 import Floor from './floor.js'
 import JeffBezos from './jeffBezos.js'
@@ -14,7 +14,10 @@ class Level1 extends GameComponent {
       new THREE.AmbientLight(0x404040)
     ))
 
-    this.initializeChild(Shovel)
+    this.initializeChild(PlayerCharacter, {
+      position: new THREE.Vector3(0, 1, 15),
+    })
+
     this.initializeChild(Sky)
     this.initializeChild(Floor)
     this.initializeChild(JeffBezos)

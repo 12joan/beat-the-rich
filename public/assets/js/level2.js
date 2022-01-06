@@ -1,6 +1,6 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
-import Shovel from './shovel.js'
+import PlayerCharacter from './playerCharacter.js'
 import SpaceBackground from './spaceBackground.js'
 import ElonMusk from './elonMusk.js'
 
@@ -15,7 +15,10 @@ class Level2 extends GameComponent {
       new THREE.AmbientLight(0x202020)
     ))
 
-    this.initializeChild(Shovel)
+    this.initializeChild(PlayerCharacter, {
+      position: new THREE.Vector3(0, 0, 0),
+    })
+
     this.initializeChild(SpaceBackground)
     this.initializeChild(ElonMusk)
   }
