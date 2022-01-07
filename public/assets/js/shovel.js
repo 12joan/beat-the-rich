@@ -23,13 +23,13 @@ class Shovel extends GameComponent {
   shovelAngle = MIN_ATTACK_ANGLE
 
   start() {
-    this.cameraPivot = this.objectRequiresCleanup(new THREE.Object3D())
-    this.scene.add(this.cameraPivot)
+    this.playerPivot = this.objectRequiresCleanup(new THREE.Object3D())
+    this.scene.add(this.playerPivot)
 
     this.shovel = this.objectRequiresCleanup(this.resetObject(getResource('shovel.obj')))
 
     this.shovel.position.set(0.2, -0.5 * SHOVEL_HEIGHT, -0.75)
-    this.cameraPivot.add(this.shovel)
+    this.playerPivot.add(this.shovel)
 
     this.followCamera()
     this.updateShovelAngle()
@@ -75,8 +75,8 @@ class Shovel extends GameComponent {
     const playerCharacter = this.find('PlayerCharacter')
 
     if (playerCharacter !== null) {
-      this.cameraPivot.position.copy(playerCharacter.position)
-      this.cameraPivot.quaternion.copy(playerCharacter.quaternion)
+      this.playerPivot.position.copy(playerCharacter.position)
+      this.playerPivot.quaternion.copy(playerCharacter.quaternion)
     }
   }
 

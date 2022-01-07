@@ -7,7 +7,7 @@ await loadResources()
 const canvas = document.querySelector('#game-canvas')
 const scene = new THREE.Scene()
 
-const camera = new THREE.PerspectiveCamera(45, canvas.width / canvas.height, 0.1, 1000)
+const camera = new THREE.PerspectiveCamera(45, canvas.width / canvas.height, 0.001, 1000)
 
 const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
 renderer.shadowMap.enabled = true
