@@ -11,6 +11,7 @@ class Controls extends GameComponent {
   tags = ['Controls']
 
   velocity = new THREE.Vector3()
+  cycleViewButtonWasDown = false
 
   start() {
     this.controls = new PointerLockControls(this.camera, document.body)
@@ -22,6 +23,7 @@ class Controls extends GameComponent {
   }
 
   update(deltaTime) {
+    // Movement input
     const inputHeading = new THREE.Vector3()
 
     if (InputManager.getKey('w'))
@@ -57,6 +59,15 @@ class Controls extends GameComponent {
     movement.setLength(speed)
 
     this.find('PlayerCharacter')?.position?.add(movement)
+
+    // Cycle camera view
+    const cycleViewButtonIsDown = InputManager.getKey('c')
+
+    if (cycleViewButtonIsDown && !this.cycleViewButtonWasDown) {
+      this.find('PlayerCharacter')?.cycleCameraView?.()
+    }
+
+    this.cycleViewButtonWasDown = cycleViewButtonIsDown
   }
 
   lock() {

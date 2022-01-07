@@ -6,6 +6,11 @@ import Shovel from './shovel.js'
 class PlayerCharacter extends GameComponent {
   tags = ['PlayerCharacter']
 
+  cameraViews = [
+    { name: 'First-person', cameraAltitude: 0, cameraDistance: 0, modelVisible: false },
+    { name: 'Third-person', cameraAltitude: 0.5, cameraDistance: 4.5, modelVisible: true },
+  ]
+
   constructor({ position, ...otherOptions }) {
     super(otherOptions)
     this.initialPosition = position
@@ -38,6 +43,7 @@ class PlayerCharacter extends GameComponent {
   }
 
   update(deltaTime) {
+    this.playerObject.visible = this.cameraView.modelVisible
     this.animationMixer.update(deltaTime)
 
     const lookDirection = new THREE.Vector3()
@@ -58,13 +64,22 @@ class PlayerCharacter extends GameComponent {
     if (cameraToPlayer.y > 0)
       cameraToPlayer.y = 0
 
-    cameraToPlayer.multiplyScalar(4.5)
+    cameraToPlayer.multiplyScalar(this.cameraView.cameraDistance)
 
     const cameraPosition = this.position.clone()
     cameraPosition.sub(cameraToPlayer)
-    cameraPosition.y += 0.5
+    cameraPosition.y += this.cameraView.cameraAltitude
 
     this.camera.position.copy(cameraPosition)
+  }
+
+  cycleCameraView() {
+    const [x, ...xs] = this.cameraViews
+    this.cameraViews = [...xs, x]
+  }
+
+  get cameraView() {
+    return this.cameraViews[0]
   }
 
   get position() {
