@@ -4,6 +4,7 @@ import Overlay from './overlay.js'
 import Controls from './controls.js'
 import Level1 from './level1.js'
 import Level2 from './level2.js'
+import CoinBurst from './coinBurst.js'
 
 const ATTACK_MAX_DISTANCE = 2.5
 const ATTACK_MAX_ANGLE = THREE.MathUtils.degToRad(30)
@@ -64,6 +65,7 @@ class GameLogic extends GameComponent {
   handleHit() {
     if (this.enemy.active) {
       this.enemyWealth = Math.max(0, this.enemyWealth - WEALTH_REDUCTION_PER_HIT)
+      this.initializeChild(CoinBurst, { position: this.enemy.headPosition() })
 
       if (this.enemyWealth == 0) {
         this.enemy.active = false

@@ -79,6 +79,12 @@ class ElonMusk extends GameComponent {
   get position() {
     return this.rocket.position
   }
+
+  headPosition() {
+    const position = this.rocket.position.clone()
+    position.y += 0.4
+    return position
+  }
 }
 
 export default ElonMusk

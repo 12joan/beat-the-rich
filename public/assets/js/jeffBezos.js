@@ -85,6 +85,13 @@ class JeffBezos extends GameComponent {
     return this.box.position
   }
 
+  headPosition() {
+    const position = new THREE.Vector3()
+    this.cutOut.getWorldPosition(position)
+    position.y += CUT_OUT_HEIGHT
+    return position
+  }
+
   setAltitude(altitude) {
     this.box.position.y = altitude
     this.clippingPlane.constant = -altitude

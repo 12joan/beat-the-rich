@@ -26,6 +26,7 @@ const loadGLTF = gltfUrl => {
 const RESOURCE_PROMISES = {
   'shovel.obj': loadOBJ('/assets/models/shovel.obj', '/assets/materials/shovel.mtl'),
   'player.glb': loadGLTF('/assets/models/player.glb'),
+  'coin.png': loadWithType(THREE.TextureLoader, '/assets/sprites/coin.png'),
   'stone.png': loadWithType(THREE.TextureLoader, '/assets/textures/stone.png'),
   'box.obj': loadOBJ('/assets/models/box.obj', '/assets/materials/box.mtl'),
   'jeff.obj': loadOBJ('/assets/models/jeff.obj', '/assets/materials/jeff.mtl'),
