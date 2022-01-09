@@ -6,7 +6,8 @@ import Level1 from './level1.js'
 import Level2 from './level2.js'
 import CoinBurst from './coinBurst.js'
 
-const ATTACK_MAX_DISTANCE = 2.5
+const ATTACK_MAX_DISTANCE = 3
+const ATTACK_AUTOHIT_DISTANCE = 0.75
 const ATTACK_MAX_ANGLE = THREE.MathUtils.degToRad(30)
 
 const WEALTH_REDUCTION_PER_HIT = 15e9 + Math.round(1e8 * Math.random())
@@ -58,7 +59,7 @@ class GameLogic extends GameComponent {
     const distance = toEnemy.length()
     const angle = toEnemy.angleTo(lookDirection)
 
-    if (distance <= ATTACK_MAX_DISTANCE && angle <= ATTACK_MAX_ANGLE)
+    if (distance <= ATTACK_MAX_DISTANCE && (angle <= ATTACK_MAX_ANGLE || distance <= ATTACK_AUTOHIT_DISTANCE))
       this.handleHit()
   }
 
