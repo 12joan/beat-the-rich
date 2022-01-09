@@ -6,12 +6,13 @@ class GameComponent {
   active = true
   cleanUpHelper = new CleanUpHelper()
 
-  constructor({ parentComponent = undefined, scene, camera, renderer, canvas }) {
+  constructor({ parentComponent = undefined, scene, camera, renderer, canvas, audioListener }) {
     this.parentComponent = parentComponent
     this.scene = scene
     this.camera = camera
     this.renderer = renderer
     this.canvas = canvas
+    this.audioListener = audioListener
     this.children = []
   }
 

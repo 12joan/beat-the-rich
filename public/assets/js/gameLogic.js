@@ -1,5 +1,6 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
+import { getResource } from './loadedResources.js'
 import Overlay from './overlay.js'
 import Controls from './controls.js'
 import Level1 from './level1.js'
@@ -74,6 +75,11 @@ class GameLogic extends GameComponent {
     if (this.enemy.active) {
       this.enemyWealth = Math.max(0, this.enemyWealth - WEALTH_REDUCTION_PER_HIT)
       this.initializeChild(CoinBurst, { position: this.enemy.headPosition() })
+
+      const sound = new THREE.Audio(this.audioListener)
+      sound.setBuffer(getResource('scream.wav'))
+      sound.setVolume(0.25)
+      sound.play()
 
       if (this.enemyWealth == 0) {
         this.enemy.active = false

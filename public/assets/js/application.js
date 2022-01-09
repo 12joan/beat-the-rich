@@ -10,6 +10,9 @@ import GameLogic from './gameLogic.js'
 
   const camera = new THREE.PerspectiveCamera(45, canvas.width / canvas.height, 0.001, 1000)
 
+  const audioListener = new THREE.AudioListener()
+  camera.add(audioListener)
+
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: true })
   renderer.shadowMap.enabled = true
   renderer.shadowMap.type = THREE.PCFSoftShadowMap
@@ -24,7 +27,7 @@ import GameLogic from './gameLogic.js'
   window.addEventListener('resize', updateRendererSize)
   updateRendererSize()
 
-  const rootComponent = new GameLogic({ scene, camera, renderer, canvas })
+  const rootComponent = new GameLogic({ scene, camera, renderer, canvas, audioListener })
   rootComponent.abstractStart()
 
   const controls = rootComponent.find('Controls')
