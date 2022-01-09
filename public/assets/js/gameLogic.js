@@ -15,7 +15,7 @@ const WEALTH_REDUCTION_PER_HIT = 15e9 + Math.round(1e8 * Math.random())
 class GameLogic extends GameComponent {
   tags = ['GameLogic']
 
-  levels = [Level2]
+  levels = [Level1, Level2]
 
   start() {
     this.initializeChild(Overlay)
@@ -25,15 +25,22 @@ class GameLogic extends GameComponent {
 
   update() {
     this.hud.data.countdownLabel = this.enemy.countdownLabel
-    this.hud.data.remainingTime = this.enemy.remainingTime
+    this.hud.data.remainingTime = this.timeLimitEnabled
+      ? Math.max(0, Math.ceil(this.enemy.remainingTime)) + ' seconds'
+      : '[No time limit]' 
+
     this.hud.data.enemyName = this.enemy.enemyName
     this.hud.data.startingWealth = this.enemy.startingWealth
     this.hud.data.currentWealth = this.enemyWealth
 
-    if (this.enemy.active && this.enemy.remainingTime <= 0) {
+    if (this.enemy.active && this.enemy.remainingTime <= 0 && this.timeLimitEnabled) {
       this.enemy.active = false
       setTimeout(() => this.gameOver(), 1000)
     }
+  }
+
+  get timeLimitEnabled() {
+    return this._timeLimitEnabled ??= document.querySelector('#time-limit-check').checked
   }
 
   startLevel() {

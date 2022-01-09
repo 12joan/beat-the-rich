@@ -12,7 +12,7 @@ class HUD extends GameComponent {
   update() {
     // Countdown
     this.hudEl.querySelector('#game-overlay-hud-countdown-label').innerText = this.data.countdownLabel
-    this.hudEl.querySelector('#game-overlay-hud-countdown-value').innerText = Math.max(0, Math.ceil(this.data.remainingTime)) + ' seconds'
+    this.hudEl.querySelector('#game-overlay-hud-countdown-value').innerText = this.data.remainingTime
 
     // Enemy name
     this.hudEl.querySelector('#game-overlay-hud-wealth-name').innerText = this.data.enemyName
