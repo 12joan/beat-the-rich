@@ -2,6 +2,7 @@ import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
 import { getResource } from './loadedResources.js'
 import Overlay from './overlay.js'
+import Music from './music.js'
 import Controls from './controls.js'
 import Level1 from './level1.js'
 import Level2 from './level2.js'
@@ -20,6 +21,7 @@ class GameLogic extends GameComponent {
 
   start() {
     this.initializeChild(Overlay)
+    this.musicController = this.initializeChild(Music)
     this.controls = this.initializeChild(Controls)
     this.startLevel()
   }
@@ -111,9 +113,10 @@ class GameLogic extends GameComponent {
         controls.lock()
       })
     } else {
+      this.musicController.playSong(getResource('ending-theme.mp3'))
+
       this.find('Menus').setMenu('game-completed', () => {
         window.open('https://choose.love/collections/daily-survival', '_blank')
-        window.location.reload()
       })
     }
   }

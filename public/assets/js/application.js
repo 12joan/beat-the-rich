@@ -1,5 +1,5 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
-import { loadResources } from './loadedResources.js'
+import { loadResources, getResource } from './loadedResources.js'
 import GameLogic from './gameLogic.js'
 
 (async () => {
@@ -32,8 +32,13 @@ import GameLogic from './gameLogic.js'
 
   const controls = rootComponent.find('Controls')
   const menuController = rootComponent.find('Menus')
+  const musicController = rootComponent.find('Music')
+
+  musicController.playSong(getResource('main-menu-theme.mp3'))
 
   menuController.setMenu('main-menu', () => {
+    musicController.playSong(getResource('battle-theme.mp3'))
+
     menuController.setMenu('level-1', () => {
       controls.lock()
     })

@@ -38,6 +38,7 @@ class GameComponent {
       camera: this.camera,
       renderer: this.renderer,
       canvas: this.canvas,
+      audioListener: this.audioListener,
       ...options
     }))
   }

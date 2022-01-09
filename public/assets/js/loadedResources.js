@@ -24,6 +24,8 @@ const loadGLTF = gltfUrl => {
 }
 
 const RESOURCE_PROMISES = {
+  'main-menu-theme.mp3': loadWithType(THREE.AudioLoader, '/assets/music/main-menu-theme.mp3'),
+  'battle-theme.mp3': loadWithType(THREE.AudioLoader, '/assets/music/battle-theme.mp3'),
   'shovel.obj': loadOBJ('/assets/models/shovel.obj', '/assets/materials/shovel.mtl'),
   'player.glb': loadGLTF('/assets/models/player.glb'),
   'coin.png': loadWithType(THREE.TextureLoader, '/assets/sprites/coin.png'),
@@ -36,6 +38,7 @@ const RESOURCE_PROMISES = {
   'space_background.frag': loadWithType(THREE.FileLoader, '/assets/shaders/space_background/space_background.frag'),
   'star.png': loadWithType(THREE.TextureLoader, '/assets/sprites/star.png'),
   'sun.png': loadWithType(THREE.TextureLoader, '/assets/sprites/sun.png'),
+  'ending-theme.mp3': loadWithType(THREE.AudioLoader, '/assets/music/ending-theme.mp3'),
 }
 
 const resources = {}
