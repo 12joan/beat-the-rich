@@ -5,11 +5,11 @@ import Timer from './timer.js'
 
 const ROCKET_OFFSET_Y = -0.2
 
-const DELAY_BEFORE_ROTATION = 1.5
+const DELAY_BEFORE_ROTATION = 2
 const ROTATION_DURATION = 1
 
-const ROTATION_SPEED = THREE.MathUtils.degToRad(60)
-const ROTATION_RADIUS = 8
+const ROTATION_SPEED = THREE.MathUtils.degToRad(50)
+const ROTATION_RADIUS = 6
 
 const BOB_SPEED = THREE.MathUtils.degToRad(120)
 const BOB_AMPLITUDE = 0.2

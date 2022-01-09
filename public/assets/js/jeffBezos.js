@@ -3,7 +3,7 @@ import GameComponent from './gameComponent.js'
 import { getResource } from './loadedResources.js'
 import Timer from './timer.js'
 
-const DELAY_BETWEEN_LEAPS = 1
+const DELAY_BETWEEN_LEAPS = 2
 const LEAP_DURATION = 0.5
 const LEAP_HEIGHT = 1.25
 const LEAP_SPEED = 10

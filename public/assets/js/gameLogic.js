@@ -15,7 +15,7 @@ const WEALTH_REDUCTION_PER_HIT = 15e9 + Math.round(1e8 * Math.random())
 class GameLogic extends GameComponent {
   tags = ['GameLogic']
 
-  levels = [Level1, Level2]
+  levels = [Level2]
 
   start() {
     this.initializeChild(Overlay)
