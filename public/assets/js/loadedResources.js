@@ -3,7 +3,20 @@ import { OBJLoader } from '../../vendor/js/three.js/examples/jsm/loaders/OBJLoad
 import { MTLLoader } from '../../vendor/js/three.js/examples/jsm/loaders/MTLLoader.js'
 import { GLTFLoader } from '../../vendor/js/three.js/examples/jsm/loaders/GLTFLoader.js'
 
-const loadWithLoader = (loader, url) => new Promise((resolve, reject) => loader.load(url, resolve, () => {}, reject))
+let onProgress
+const resourceProgressData = {}
+
+const loadWithLoader = (loader, url) => loader.loadAsync(url, progress => {
+  resourceProgressData[url] = progress
+
+  const totalProgressData = Object.values(resourceProgressData).reduce(({ total, loaded }, progress) => ({
+    total: total + progress.total,
+    loaded: loaded + progress.loaded,
+  }), { total: 0, loaded: 0 })
+
+  onProgress(totalProgressData.loaded / totalProgressData.total)
+})
+
 const loadWithType = (klass, url) => loadWithLoader(new klass(), url)
 
 const loadOBJ = (objUrl, mtlUrl) => {
@@ -23,7 +36,7 @@ const loadGLTF = gltfUrl => {
   return loadWithLoader(gltfLoader, gltfUrl)
 }
 
-const RESOURCE_PROMISES = {
+const resourcePromises = {
   'main-menu-theme.mp3': loadWithType(THREE.AudioLoader, '/assets/music/main-menu-theme.mp3'),
   'battle-theme.mp3': loadWithType(THREE.AudioLoader, '/assets/music/battle-theme.mp3'),
   'shovel.obj': loadOBJ('/assets/models/shovel.obj', '/assets/materials/shovel.mtl'),
@@ -43,9 +56,11 @@ const RESOURCE_PROMISES = {
 
 const resources = {}
 
-const loadResources = async () => {
-  for (const key of Object.keys(RESOURCE_PROMISES)) {
-    resources[key] = await RESOURCE_PROMISES[key]
+const loadResources = async _onProgress => {
+  onProgress = _onProgress
+
+  for (const key of Object.keys(resourcePromises)) {
+    resources[key] = await resourcePromises[key]
   }
 
   return resources

@@ -3,7 +3,13 @@ import { loadResources, getResource } from './loadedResources.js'
 import GameLogic from './gameLogic.js'
 
 (async () => {
-  await loadResources()
+  const loadingIndicator = document.querySelector('#loading')
+
+  await loadResources(progress => {
+    loadingIndicator.innerText = `Loading... ${Math.floor(progress * 100)}%`
+  })
+
+  loadingIndicator.remove()
 
   const canvas = document.querySelector('#game-canvas')
   const scene = new THREE.Scene()
