@@ -18,6 +18,10 @@ h1, h2, h3 {
   margin: 0;
 }
 
+a, a:link, a:visited, a:hover, a:active {
+  color: orange;
+}
+
 button {
   font-family: inherit;
   background-color: white;
