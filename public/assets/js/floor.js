@@ -2,6 +2,8 @@ import GameComponent from './gameComponent.js'
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import { getResource } from './loadedResources.js'
 
+// The floor of Level 1.
+
 const SIZE = 2000
 const TEXTURE_SIZE = 10
 

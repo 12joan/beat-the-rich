@@ -1,3 +1,5 @@
+// A utility class to keep track of game time elapsed for various purposes
+
 class Timer {
   currentTime = 0
 

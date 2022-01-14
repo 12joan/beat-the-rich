@@ -4,6 +4,12 @@ import PlayerCharacter from './playerCharacter.js'
 import SpaceBackground from './spaceBackground.js'
 import ElonMusk from './elonMusk.js'
 
+/* Initialise all child components required for Level 2 and configure the
+ * background, ambient light and camera. For this level, it's important that
+ * the player can only look left or right, not up or down, to avoid
+ * disorientation.
+ */
+
 class Level2 extends GameComponent {
   start() {
     this.camera.position.set(0, 0, 0)

@@ -3,6 +3,13 @@ import GameComponent from './gameComponent.js'
 import { getResource } from './loadedResources.js'
 import Shovel from './shovel.js'
 
+/* The player character acts as the single source of truth for where the player
+ * is, and also keeps the camera within the constraints of the camera view and
+ * pointed towards the player.
+ *
+ * The shovel is a child of this component.
+ */
+
 class PlayerCharacter extends GameComponent {
   tags = ['PlayerCharacter']
 
@@ -17,12 +24,14 @@ class PlayerCharacter extends GameComponent {
   }
 
   start() {
+    // Object representing the position of the player
     this.object = this.objectRequiresCleanup(new THREE.Object3D())
     this.object.position.copy(this.initialPosition)
     this.scene.add(this.object)
 
     this.initializeChild(Shovel)
 
+    // Add player model
     const { scene: playerObject, animations: playerAnimations } = getResource('player.glb')
 
     this.playerObject = playerObject
@@ -36,6 +45,7 @@ class PlayerCharacter extends GameComponent {
 
     this.scene.add(this.playerObject)
 
+    // Player model animation
     this.animationMixer = new THREE.AnimationMixer(this.playerObject)
 
     const clip = playerAnimations[0]
@@ -43,7 +53,10 @@ class PlayerCharacter extends GameComponent {
   }
 
   update(deltaTime) {
+    // Set model visability
     this.playerObject.visible = this.cameraView.modelVisible
+
+    // Update animation
     this.animationMixer.update(deltaTime)
 
     const lookDirection = new THREE.Vector3()

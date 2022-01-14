@@ -2,15 +2,30 @@ import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import { loadResources, getResource } from './loadedResources.js'
 import GameLogic from './gameLogic.js'
 
+/* This file performs all necessary setup for the game and performs the update
+ * loop. The GameComponent abstract class is used to create a tree of game
+ * components, which is used to share information and synchronise updates
+ * throughout the game.
+ *
+ * The GameLogic component is the root of this tree, and is the go-to place to
+ * begin understanding the code.
+ *
+ * For a deeper understanding of how the game component tree works internally,
+ * take a look at the GameComponent class itself.
+ */
+
+// Wait for the load game button to be clicked
 document.querySelector('#loading button').addEventListener('click', async () => {
   const loadingIndicator = document.querySelector('#loading')
 
+  // Preload all resources used by the game
   await loadResources(progress => {
     loadingIndicator.innerText = `Loading... ${Math.floor(progress * 100)}%`
   })
 
   loadingIndicator.remove()
 
+  // Three.js setup
   const canvas = document.querySelector('#game-canvas')
   const scene = new THREE.Scene()
 
@@ -33,6 +48,7 @@ document.querySelector('#loading button').addEventListener('click', async () => 
   window.addEventListener('resize', updateRendererSize)
   updateRendererSize()
 
+  // Initialise game component tree
   const rootComponent = new GameLogic({ scene, camera, renderer, canvas, audioListener })
   rootComponent.abstractStart()
 
@@ -40,6 +56,7 @@ document.querySelector('#loading button').addEventListener('click', async () => 
   const menuController = rootComponent.find('Menus')
   const musicController = rootComponent.find('Music')
 
+  // Manage main menu and music
   musicController.playSong(getResource('main-menu-theme.mp3'))
 
   menuController.setMenu('main-menu', () => {
@@ -50,6 +67,7 @@ document.querySelector('#loading button').addEventListener('click', async () => 
     })
   })
 
+  // Logic to switch between menus and the game
   const onFocus = () => {
     menuController.setMenu('none')
 
@@ -65,11 +83,15 @@ document.querySelector('#loading button').addEventListener('click', async () => 
     document.querySelector('#game-overlay-hud').classList.add('blur')
   }
 
+  // Track time between updates
   let previousTime = performance.now()
+
+  // Track whether the game has been updated since last draw
   let upToDate = false
+
   let wasLocked = false
 
-  function updateLoop() {
+  const updateLoop = () => {
     const time = performance.now()
     const deltaTime = (time - previousTime) / 1000
 

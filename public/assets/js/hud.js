@@ -1,6 +1,8 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
 
+// Heads-Up Display
+
 class HUD extends GameComponent {
   tags = ['HUD']
 
@@ -29,6 +31,7 @@ class HUD extends GameComponent {
     this.hudEl.classList.remove('d-none')
   }
 
+  // 12345678 -> '$12,345,678'
   formatWealth(value) {
     const reversedDigits = Array.from(String(value)).reverse().join('')
     const reversedWithCommas = reversedDigits.replaceAll(/(\d{3})(?!$)/g, '$1,')

@@ -1,6 +1,8 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
 
+// Show and hide menus and delegate menu button clicks
+
 class Menus extends GameComponent {
   tags = ['Menus']
 

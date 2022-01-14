@@ -3,6 +3,12 @@ import GameComponent from './gameComponent.js'
 import { getResource } from './loadedResources.js'
 import Timer from './timer.js'
 
+/* Enemy of Level 2. Elon Musk rotates in a circle of radius ROTATION_RADIUS
+ * around the centre of the scene, always facing in towards the centre. In
+ * addition to this, he bobs up and down to add to the illusion of travelling
+ * through space.
+ */
+
 const ROCKET_OFFSET_Y = -0.2
 
 const DELAY_BEFORE_ROTATION = 2
@@ -45,20 +51,27 @@ class ElonMusk extends GameComponent {
   update(deltaTime) {
     this.remainingTime -= deltaTime
 
+    // Bob animation
     this.bobPhase += BOB_SPEED * deltaTime
+
+    // Update angle in rotation circle. rotationDirection may be 0.
     this.angle += this.rotationDirection * ROTATION_SPEED * deltaTime
 
     if (this.rotationDirection === 0) {
+      // If not currently rotating, wait DELAY_BEFORE_ROTATION seconds
       this.beforeRotationTimer.advanceClock(deltaTime)
 
       this.beforeRotationTimer.afterTime(DELAY_BEFORE_ROTATION, () => {
+        // Begin rotating either left or right
         this.rotationDirection = Math.random() > 0.5 ? 1 : -1
         this.beforeRotationTimer.reset()
       })
     } else {
+      // If in the process of rotating, wait ROTATION_DURATION seconds
       this.rotationTimer.advanceClock(deltaTime)
 
       this.rotationTimer.afterTime(ROTATION_DURATION, () => {
+        // Stop rotating
         this.rotationDirection = 0
         this.rotationTimer.reset()
       })
@@ -68,11 +81,14 @@ class ElonMusk extends GameComponent {
   }
 
   updateRocketPosition() {
+    // Set position using polar coordinates
     this.rocket.position.x = ROTATION_RADIUS * Math.cos(this.angle - (Math.PI / 2))
     this.rocket.position.z = ROTATION_RADIUS * Math.sin(this.angle - (Math.PI / 2))
 
+    // Face towards the centre
     this.rocket.rotation.y = -this.angle
 
+    // Bob animation
     this.rocket.position.y = ROCKET_OFFSET_Y + (BOB_AMPLITUDE * Math.sin(this.bobPhase))
   }
 

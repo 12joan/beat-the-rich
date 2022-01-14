@@ -2,6 +2,10 @@ import GameComponent from './gameComponent.js'
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import { Sky as SkyObject } from '../../vendor/js/three.js/examples/jsm/objects/Sky.js'
 
+/* The sky of Level 1. The Sky object provided by Three.js is used to draw the
+ * sky, and a DirectionalLight is used to provide light from the sun.
+ */
+
 class Sky extends GameComponent {
   start() {
     const sky = this.objectRequiresCleanup(new SkyObject())

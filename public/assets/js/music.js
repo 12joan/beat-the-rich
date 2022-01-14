@@ -1,6 +1,8 @@
 import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
 
+// Manage main background music
+
 class Music extends GameComponent {
   tags = ['Music']
 

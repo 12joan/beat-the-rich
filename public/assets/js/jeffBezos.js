@@ -3,6 +3,10 @@ import GameComponent from './gameComponent.js'
 import { getResource } from './loadedResources.js'
 import Timer from './timer.js'
 
+/* Enemy of Level 1. Jeff Bezos slowly descends into a box while hopping in
+ * random directions
+ */
+
 const DELAY_BETWEEN_LEAPS = 2
 const LEAP_DURATION = 0.5
 const LEAP_HEIGHT = 1.25
@@ -24,6 +28,10 @@ class JeffBezos extends GameComponent {
   remainingTime = DESCENT_INTO_BOX_DURATION
 
   start() {
+    /* The cut-out will be descending into the box. A clipping plane is used
+     * to ensure that only the part of the model above and inside the box is
+     * visible.
+     */
     this.clippingPlane = new THREE.Plane(new THREE.Vector3(0, 1, 0), 0)
 
     this.box = this.objectRequiresCleanup(this.resetObject(getResource('box.obj')))
@@ -52,6 +60,7 @@ class JeffBezos extends GameComponent {
   }
 
   update(deltaTime) {
+    // Descend into box
     this.cutOut.position.y -= (CUT_OUT_HEIGHT - BOX_HEIGHT) * deltaTime / DESCENT_INTO_BOX_DURATION
     this.remainingTime -= deltaTime
 
@@ -85,6 +94,7 @@ class JeffBezos extends GameComponent {
     return this.box.position
   }
 
+  // The position to centre the coin burst on
   headPosition() {
     const position = new THREE.Vector3()
     this.cutOut.getWorldPosition(position)

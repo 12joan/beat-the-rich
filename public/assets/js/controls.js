@@ -3,6 +3,14 @@ import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import { PointerLockControls } from '../../vendor/js/three.js/examples/jsm/controls/PointerLockControls.js'
 import InputManager from './inputManager.js'
 
+/* Controls the movement of the player and the camera controls. The player is
+ * accelerated and decelerated to provide a smooth experience of moving.
+ *
+ * PointerLockControls from Three.js are used to rotate the camera. The
+ * position of the camera relative to the player is also updated in
+ * PlayerCharacter.
+ */
+
 const ACCELERATION = 40
 const DECCELERATION_COEFFICIENT = 10
 const MAX_SPEED = 6
@@ -23,7 +31,7 @@ class Controls extends GameComponent {
   }
 
   update(deltaTime) {
-    // Movement input
+    // Get input direction
     const inputHeading = new THREE.Vector3()
 
     if (InputManager.getKey('w'))

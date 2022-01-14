@@ -2,6 +2,11 @@ import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import GameComponent from './gameComponent.js'
 import { getResource } from './loadedResources.js'
 
+/* The star background of Level 2. A ShaderMaterial is used to render the
+ * stars, whose initial positions are randomly generated here. The sun is also
+ * rendered as a 2D sprite along with a directional light.
+ */
+
 const STAR_COUNT = 7500
 const RADIUS = 1000
 const RADIUS_VARIATION = 750
@@ -13,6 +18,7 @@ const SUN_SPEED = 5
 
 class SpaceBackground extends GameComponent {
   start() {
+    // Randomly generate star positions
     const starPositions = []
 
     for (let i = 0; i < STAR_COUNT; i++) {
@@ -47,6 +53,7 @@ class SpaceBackground extends GameComponent {
     const stars = this.objectRequiresCleanup(new THREE.Points(starsGeometry, this.starsMaterial))
     this.scene.add(stars)
 
+    // Draw sun
     const sunMaterial = this.requiresCleanup(new THREE.SpriteMaterial({
       map: getResource('sun.png'),
       color: 0xffffff,

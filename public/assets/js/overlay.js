@@ -3,6 +3,8 @@ import GameComponent from './gameComponent.js'
 import HUD from './hud.js'
 import Menus from './menus.js'
 
+// The overlay, consisting of the HUD and menus
+
 class Overlay extends GameComponent {
   tags = ['Overlay']
 

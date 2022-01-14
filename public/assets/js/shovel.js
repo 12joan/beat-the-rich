@@ -4,6 +4,11 @@ import { getResource } from './loadedResources.js'
 import InputManager from './inputManager.js'
 import Timer from './timer.js'
 
+/* Arguably the most important part of the game: The Shovel. This component is
+ * responsible for keeping the shovel object in front of the player and for
+ * animating attacks made with it.
+ */
+
 const SHOVEL_HEIGHT = 0.5
 const SHOVEL_ANGLE_Y = THREE.MathUtils.degToRad(15)
 const MIN_ATTACK_ANGLE = THREE.MathUtils.degToRad(10)
@@ -23,6 +28,10 @@ class Shovel extends GameComponent {
   shovelAngle = MIN_ATTACK_ANGLE
 
   start() {
+    /* The playerPivot follows the player's position exactly. The shovel is a
+     * child of it, so that the shovel's local position is relative to the
+     * player(Pivot)'s position.
+     */
     this.playerPivot = this.objectRequiresCleanup(new THREE.Object3D())
     this.scene.add(this.playerPivot)
 
@@ -31,22 +40,26 @@ class Shovel extends GameComponent {
     this.shovel.position.set(0.2, -0.5 * SHOVEL_HEIGHT, -0.75)
     this.playerPivot.add(this.shovel)
 
-    this.followCamera()
+    this.followPlayer()
     this.updateShovelAngle()
   }
 
   update(deltaTime) {
-    this.followCamera()
+    this.followPlayer()
 
+    // On click, perform an attack
     const buttonState = InputManager.getMouseButton(InputManager.MOUSE_BUTTONS.LEFT)
 
     if (buttonState && !this.lastButtonState && this.animationState === ANIMATION_STATES.RESTING) {
       this.animationState = ANIMATION_STATES.DESCENDING
+
+      // Officially, the attack takes place as soon as the user clicks
       this.find('GameLogic').handleAttack()
     }
 
     this.lastButtonState = buttonState
 
+    // Animate shovel angle
     switch (this.animationState) {
       case ANIMATION_STATES.DESCENDING:
         this.shovelAngle += deltaTime * (MAX_ATTACK_ANGLE - MIN_ATTACK_ANGLE) / DESCENT_DURATION
@@ -71,7 +84,7 @@ class Shovel extends GameComponent {
     this.updateShovelAngle()
   }
 
-  followCamera() {
+  followPlayer() {
     const playerCharacter = this.find('PlayerCharacter')
 
     if (playerCharacter !== null) {
