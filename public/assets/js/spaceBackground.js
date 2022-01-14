@@ -8,7 +8,7 @@ const RADIUS_VARIATION = 750
 const MAX_ALTITUDE = 300
 const MIN_ALTITUDE = -300
 const STAR_SIZE = 1000
-const STAR_SPEED = 40
+const STAR_SPEED = 400
 const SUN_SPEED = 5
 
 class SpaceBackground extends GameComponent {
