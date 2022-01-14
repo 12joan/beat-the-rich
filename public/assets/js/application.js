@@ -2,7 +2,7 @@ import * as THREE from '../../vendor/js/three.js/build/three.module.js'
 import { loadResources, getResource } from './loadedResources.js'
 import GameLogic from './gameLogic.js'
 
-(async () => {
+document.querySelector('#loading button').addEventListener('click', async () => {
   const loadingIndicator = document.querySelector('#loading')
 
   await loadResources(progress => {
@@ -93,4 +93,4 @@ import GameLogic from './gameLogic.js'
   }
 
   updateLoop()
-})()
+})
