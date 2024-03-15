@@ -141,7 +141,7 @@ class GameLogic extends GameComponent {
       this.musicController.playSong(getResource('ending-theme.mp3'))
 
       this.find('Menus').setMenu('game-completed', () => {
-        window.open('https://choose.love/collections/daily-survival', '_blank')
+        window.open('https://choose.love/', '_blank')
       })
     }
   }
